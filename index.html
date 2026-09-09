@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Mermaids Restaurant & Wine</title>
-  <meta name="description" content="Mermaids Restaurant & Wine — Mediterranean cuisine, fine wine and unforgettable moments.">
+
+  <meta
+    name="description"
+    content="Mermaids Restaurant & Wine — Mediterranean cuisine, fine wine and unforgettable moments."
+  >
 
   <style>
     * {
@@ -48,7 +52,9 @@
       font-family: inherit;
     }
 
-    /* HEADER */
+    /* =========================
+       HEADER
+       ========================= */
 
     header {
       position: fixed;
@@ -109,7 +115,9 @@
       color: var(--gold-light);
     }
 
-    /* HERO */
+    /* =========================
+       HERO
+       ========================= */
 
     .hero {
       min-height: 100vh;
@@ -121,8 +129,17 @@
       position: relative;
       overflow: hidden;
       background:
-        radial-gradient(circle at center, rgba(201,169,110,0.12), transparent 38%),
-        linear-gradient(135deg, #090909, #151515 50%, #090909);
+        radial-gradient(
+          circle at center,
+          rgba(201,169,110,0.12),
+          transparent 38%
+        ),
+        linear-gradient(
+          135deg,
+          #090909,
+          #151515 50%,
+          #090909
+        );
     }
 
     .hero::before {
@@ -207,7 +224,9 @@
       background: var(--gold-light);
     }
 
-    /* SECTIONS */
+    /* =========================
+       GENERAL SECTIONS
+       ========================= */
 
     section {
       padding: 100px 25px;
@@ -244,7 +263,9 @@
       color: var(--muted);
     }
 
-    /* ABOUT */
+    /* =========================
+       ABOUT
+       ========================= */
 
     #about {
       background: #101010;
@@ -282,7 +303,9 @@
       font-style: italic;
     }
 
-    /* MENU */
+    /* =========================
+       MENU
+       ========================= */
 
     #menu {
       background: #0b0b0b;
@@ -335,11 +358,17 @@
       font-size: 12px;
     }
 
-    /* WINE */
+    /* =========================
+       WINE
+       ========================= */
 
     #wine {
       background:
-        radial-gradient(circle at 50% 20%, rgba(201,169,110,0.08), transparent 35%),
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(201,169,110,0.08),
+          transparent 35%
+        ),
         #111;
       text-align: center;
     }
@@ -366,7 +395,9 @@
       margin-bottom: 30px;
     }
 
-    /* RESERVATION */
+    /* =========================
+       RESERVATIONS
+       ========================= */
 
     #reservations {
       background: #e9e2d6;
@@ -432,7 +463,9 @@
       margin-top: 20px;
     }
 
-    /* PRIVATE EVENTS */
+    /* =========================
+       PRIVATE EVENTS
+       ========================= */
 
     #events {
       background: #101010;
@@ -461,11 +494,17 @@
       color: #aaa49a;
     }
 
-    /* AI SECTION */
+    /* =========================
+       AI SECTION
+       ========================= */
 
     #ai {
       background:
-        radial-gradient(circle at center, rgba(201,169,110,0.13), transparent 45%),
+        radial-gradient(
+          circle at center,
+          rgba(201,169,110,0.13),
+          transparent 45%
+        ),
         #080808;
       text-align: center;
     }
@@ -497,8 +536,6 @@
       color: #aaa49a;
     }
 
-    /* AI FEATURES */
-
     .ai-features {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -516,7 +553,9 @@
       letter-spacing: 0.5px;
     }
 
-    /* CONTACT */
+    /* =========================
+       CONTACT
+       ========================= */
 
     #contact {
       background: #0e0e0e;
@@ -550,7 +589,9 @@
       color: var(--gold-light);
     }
 
-    /* FOOTER */
+    /* =========================
+       FOOTER
+       ========================= */
 
     footer {
       background: #050505;
@@ -572,7 +613,9 @@
       margin-top: 10px;
     }
 
-    /* AI CHAT BUTTON */
+    /* =========================
+       FLOATING AI BUTTON
+       ========================= */
 
     .ai-floating-button {
       position: fixed;
@@ -596,15 +639,17 @@
       color: #111;
     }
 
-    /* CHAT WINDOW */
+    /* =========================
+       CHAT WINDOW
+       ========================= */
 
     .chat-window {
       position: fixed;
       right: 25px;
       bottom: 85px;
-      width: 360px;
+      width: 380px;
       max-width: calc(100% - 30px);
-      height: 520px;
+      height: 540px;
       background: #111;
       border: 1px solid var(--gold);
       z-index: 1499;
@@ -654,11 +699,12 @@
 
     .message {
       margin-bottom: 14px;
-      max-width: 85%;
+      max-width: 88%;
       padding: 11px 13px;
       font-family: Arial, sans-serif;
       font-size: 13px;
-      line-height: 1.5;
+      line-height: 1.55;
+      border-radius: 2px;
     }
 
     .message.bot {
@@ -688,6 +734,7 @@
       padding: 7px 9px;
       font-size: 10px;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     .quick-buttons button:hover {
@@ -706,6 +753,11 @@
       border: none;
       color: white;
       padding: 13px;
+      min-width: 0;
+    }
+
+    .chat-input input::placeholder {
+      color: #777;
     }
 
     .chat-input button {
@@ -713,11 +765,15 @@
       border: none;
       background: var(--gold);
       cursor: pointer;
+      font-size: 18px;
     }
 
-    /* RESPONSIVE */
+    /* =========================
+       RESPONSIVE
+       ========================= */
 
     @media (max-width: 800px) {
+
       nav {
         display: none;
       }
@@ -754,6 +810,7 @@
     }
 
     @media (max-width: 500px) {
+
       section {
         padding: 75px 18px;
       }
@@ -780,6 +837,7 @@
         right: 15px;
         bottom: 80px;
         width: calc(100% - 30px);
+        height: 540px;
       }
 
       .ai-floating-button {
@@ -792,7 +850,9 @@
 
 <body>
 
-  <!-- HEADER -->
+  <!-- =========================
+       HEADER
+       ========================= -->
 
   <header>
     <div class="nav">
@@ -815,7 +875,9 @@
   </header>
 
 
-  <!-- HERO -->
+  <!-- =========================
+       HERO
+       ========================= -->
 
   <section class="hero" id="home">
 
@@ -837,6 +899,7 @@
       </p>
 
       <div class="hero-buttons">
+
         <a href="#reservations" class="button gold">
           Reserve a Table
         </a>
@@ -848,6 +911,7 @@
         <button class="button" onclick="openChat()">
           ✦ Ask Mermaids AI
         </button>
+
       </div>
 
     </div>
@@ -855,19 +919,25 @@
   </section>
 
 
-  <!-- ABOUT -->
+  <!-- =========================
+       ABOUT
+       ========================= -->
 
   <section id="about">
 
     <div class="container">
 
       <div class="section-heading">
+
         <span>Our story</span>
+
         <h2>Where the sea meets the table.</h2>
+
         <p>
           Mermaids is a modern Mediterranean restaurant created
           around good food, beautiful wine and genuine hospitality.
         </p>
+
       </div>
 
       <div class="about-grid">
@@ -905,18 +975,24 @@
   </section>
 
 
-  <!-- MENU -->
+  <!-- =========================
+       MENU
+       ========================= -->
 
   <section id="menu">
 
     <div class="container">
 
       <div class="section-heading">
+
         <span>From our kitchen</span>
+
         <h2>Menu</h2>
+
         <p>
           A selection of Mediterranean favourites and modern creations.
         </p>
+
       </div>
 
       <div class="menu-grid">
@@ -993,7 +1069,9 @@
   </section>
 
 
-  <!-- WINE -->
+  <!-- =========================
+       WINE
+       ========================= -->
 
   <section id="wine">
 
@@ -1004,8 +1082,11 @@
         <div class="wine-symbol">♢</div>
 
         <div class="section-heading">
+
           <span>Our cellar</span>
+
           <h2>Fine Wine</h2>
+
         </div>
 
         <p>
@@ -1024,7 +1105,9 @@
   </section>
 
 
-  <!-- RESERVATIONS -->
+  <!-- =========================
+       RESERVATIONS
+       ========================= -->
 
   <section id="reservations">
 
@@ -1049,14 +1132,25 @@
           <div class="form-grid">
 
             <div class="form-group">
+
               <label>Name</label>
-              <input type="text" id="guestName" placeholder="Your name" required>
+
+              <input
+                type="text"
+                id="guestName"
+                placeholder="Your name"
+                required
+              >
+
             </div>
 
+
             <div class="form-group">
+
               <label>Guests</label>
 
               <select id="guests" required>
+
                 <option value="">Select</option>
                 <option>1 guest</option>
                 <option>2 guests</option>
@@ -1065,19 +1159,31 @@
                 <option>5 guests</option>
                 <option>6 guests</option>
                 <option>7+ guests</option>
+
               </select>
 
             </div>
 
-            <div class="form-group">
-              <label>Date</label>
-              <input type="date" id="date" required>
-            </div>
 
             <div class="form-group">
+
+              <label>Date</label>
+
+              <input
+                type="date"
+                id="date"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
               <label>Time</label>
 
               <select id="time" required>
+
                 <option value="">Select time</option>
                 <option>18:00</option>
                 <option>18:30</option>
@@ -1088,19 +1194,38 @@
                 <option>21:00</option>
                 <option>21:30</option>
                 <option>22:00</option>
+
               </select>
 
             </div>
 
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="email" placeholder="your@email.com" required>
-            </div>
 
             <div class="form-group">
-              <label>Phone</label>
-              <input type="tel" id="phone" placeholder="+30">
+
+              <label>Email</label>
+
+              <input
+                type="email"
+                id="email"
+                placeholder="your@email.com"
+                required
+              >
+
             </div>
+
+
+            <div class="form-group">
+
+              <label>Phone</label>
+
+              <input
+                type="tel"
+                id="phone"
+                placeholder="+30"
+              >
+
+            </div>
+
 
             <div class="form-group full">
 
@@ -1115,7 +1240,10 @@
 
           </div>
 
-          <button type="submit" class="button gold">
+          <button
+            type="submit"
+            class="button gold"
+          >
             Request Reservation
           </button>
 
@@ -1128,7 +1256,9 @@
   </section>
 
 
-  <!-- PRIVATE EVENTS -->
+  <!-- =========================
+       PRIVATE EVENTS
+       ========================= -->
 
   <section id="events">
 
@@ -1146,7 +1276,6 @@
         </p>
 
       </div>
-
 
       <div class="events-grid">
 
@@ -1192,7 +1321,9 @@
   </section>
 
 
-  <!-- AI BUSINESS DEMO -->
+  <!-- =========================
+       AI BUSINESS DEMO
+       ========================= -->
 
   <section id="ai">
 
@@ -1212,11 +1343,14 @@
 
         <p>
           Your personal restaurant assistant.
-          Ask about our menu, wine, reservations, private events
-          or anything else you need.
+          Ask about our menu, wine, reservations,
+          private events, location or anything else you need.
         </p>
 
-        <button class="button gold" onclick="openChat()">
+        <button
+          class="button gold"
+          onclick="openChat()"
+        >
           Start a conversation
         </button>
 
@@ -1264,7 +1398,9 @@
   </section>
 
 
-  <!-- CONTACT -->
+  <!-- =========================
+       CONTACT
+       ========================= -->
 
   <section id="contact">
 
@@ -1281,7 +1417,6 @@
         </p>
 
       </div>
-
 
       <div class="contact-grid">
 
@@ -1339,7 +1474,9 @@
   </section>
 
 
-  <!-- FOOTER -->
+  <!-- =========================
+       FOOTER
+       ========================= -->
 
   <footer>
 
@@ -1362,40 +1499,65 @@
   </footer>
 
 
-  <!-- FLOATING AI BUTTON -->
+  <!-- =========================
+       FLOATING AI BUTTON
+       ========================= -->
 
-  <button class="ai-floating-button" onclick="openChat()">
+  <button
+    class="ai-floating-button"
+    onclick="openChat()"
+  >
     ✦ Ask Mermaids AI
   </button>
 
 
-  <!-- CHAT WINDOW -->
+  <!-- =========================
+       CHAT WINDOW
+       ========================= -->
 
-  <div class="chat-window" id="chatWindow">
+  <div
+    class="chat-window"
+    id="chatWindow"
+  >
 
     <div class="chat-header">
 
       <div>
-        <strong>✦ Mermaids AI</strong>
+
+        <strong>
+          ✦ Mermaids AI
+        </strong>
 
         <small>
           Your restaurant assistant
         </small>
+
       </div>
 
-      <button class="chat-close" onclick="closeChat()">
+      <button
+        class="chat-close"
+        onclick="closeChat()"
+        aria-label="Close chat"
+      >
         ×
       </button>
 
     </div>
 
 
-    <div class="chat-messages" id="chatMessages">
+    <div
+      class="chat-messages"
+      id="chatMessages"
+    >
 
       <div class="message bot">
+
         Welcome to Mermaids. ✨<br><br>
+
         I'm your virtual restaurant assistant.
-        How can I help you today?
+        I can help you with reservations, our menu,
+        wine, opening hours, location and private events.
+
       </div>
 
     </div>
@@ -1423,6 +1585,10 @@
         Opening Hours
       </button>
 
+      <button onclick="quickQuestion('location')">
+        Location
+      </button>
+
     </div>
 
 
@@ -1432,10 +1598,14 @@
         type="text"
         id="chatInput"
         placeholder="Ask Mermaids AI..."
-        onkeydown="if(event.key === 'Enter') sendMessage()"
+        autocomplete="off"
       >
 
-      <button onclick="sendMessage()">
+      <button
+        id="sendChatButton"
+        onclick="sendMessage()"
+        aria-label="Send message"
+      >
         →
       </button>
 
@@ -1444,233 +1614,1303 @@
   </div>
 
 
+  <!-- =========================================================
+       MERMAIDS AI ASSISTANT
+       ELåiVA — AI BUSINESS DEMO
+       ========================================================= -->
+
   <script>
 
-    /* CHAT */
+    /* =========================
+       RESTAURANT DATA
+       ========================= */
+
+    const MERMAIDS = {
+
+      name: "Mermaids Restaurant & Wine",
+
+      address: "Mediterranean Avenue 25, Athens, Greece",
+
+      city: "Athens, Greece",
+
+      hours:
+        "Tuesday through Sunday, dinner service from 18:00 to 23:30.",
+
+      cuisine:
+        "Modern Mediterranean cuisine.",
+
+      phone:
+        "+30 210 000 0000",
+
+      email:
+        "hello@mermaidsrestaurant.com",
+
+      wine:
+        "A carefully curated selection of Greek and international wines.",
+
+      events:
+        "Birthdays, corporate dinners and private celebrations.",
+
+      dishes: {
+
+        starters: [
+          "Smoked Aubergine — Greek yogurt, herbs and olive oil",
+          "Sea Bream Carpaccio — citrus, fennel and extra virgin olive oil",
+          "Grilled Octopus — fava, capers and aged vinegar"
+        ],
+
+        mains: [
+          "Sea Bass Fillet — seasonal vegetables and lemon butter",
+          "Truffle Risotto — parmesan and wild mushrooms",
+          "Slow Cooked Lamb — potato purée, herbs and red wine jus"
+        ],
+
+        desserts: [
+          "Baklava Mille-Feuille — pistachio and vanilla cream",
+          "Dark Chocolate Tart — sea salt and olive oil",
+          "Greek Yogurt — honey, walnuts and seasonal fruit"
+        ]
+
+      }
+
+    };
+
+
+    /* =========================
+       RESERVATION STATE
+       ========================= */
+
+    let reservation = {
+      guests: null,
+      date: null,
+      time: null,
+      name: null,
+      phone: null
+    };
+
+    let waitingFor = null;
+
+
+    /* =========================
+       DOM ELEMENTS
+       ========================= */
+
+    const chatWindow =
+      document.getElementById("chatWindow");
+
+    const chatInput =
+      document.getElementById("chatInput");
+
+    const chatMessages =
+      document.getElementById("chatMessages");
+
+    const reservationForm =
+      document.getElementById("reservationForm");
+
+
+    /* =========================
+       OPEN CHAT
+       ========================= */
 
     function openChat() {
-      document.getElementById("chatWindow").classList.add("open");
-      document.getElementById("chatInput").focus();
+
+      chatWindow.classList.add("open");
+
+      setTimeout(function () {
+
+        chatInput.focus();
+
+      }, 100);
+
     }
+
+
+    /* =========================
+       CLOSE CHAT
+       ========================= */
 
     function closeChat() {
-      document.getElementById("chatWindow").classList.remove("open");
+
+      chatWindow.classList.remove("open");
+
     }
 
+
+    /* =========================
+       ADD CHAT MESSAGE
+       ========================= */
 
     function addMessage(text, type) {
 
-      const messages = document.getElementById("chatMessages");
+      const message =
+        document.createElement("div");
 
-      const message = document.createElement("div");
-
-      message.className = "message " + type;
+      message.className =
+        "message " + type;
 
       message.innerHTML = text;
 
-      messages.appendChild(message);
+      chatMessages.appendChild(message);
 
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-
-    function quickQuestion(type) {
-
-      if (type === "menu") {
-
-        addMessage("I'd like to see the menu.", "user");
-
-        setTimeout(() => {
-          addMessage(
-            "Of course. Our menu includes Mediterranean starters, seafood, meat dishes, vegetarian options and desserts. You can explore the full menu in the Menu section above. ✨",
-            "bot"
-          );
-        }, 400);
-
-      }
-
-
-      if (type === "reservation") {
-
-        addMessage("I'd like to make a reservation.", "user");
-
-        setTimeout(() => {
-          addMessage(
-            "Absolutely. I can help you with a table reservation. Please use our reservation form or tell me your preferred date, time and number of guests.",
-            "bot"
-          );
-        }, 400);
-
-      }
-
-
-      if (type === "wine") {
-
-        addMessage("Can you tell me about the wine?", "user");
-
-        setTimeout(() => {
-          addMessage(
-            "Our wine selection includes carefully chosen Greek and international labels. We can also recommend a wine based on your meal and preferences. 🍷",
-            "bot"
-          );
-        }, 400);
-
-      }
-
-
-      if (type === "events") {
-
-        addMessage("I'm interested in a private event.", "user");
-
-        setTimeout(() => {
-          addMessage(
-            "Wonderful. We host birthdays, corporate dinners and private celebrations. I can collect a few details and our team can follow up with you.",
-            "bot"
-          );
-        }, 400);
-
-      }
-
-
-      if (type === "hours") {
-
-        addMessage("What are your opening hours?", "user");
-
-        setTimeout(() => {
-          addMessage(
-            "We're open Tuesday through Sunday for dinner, from 18:00 until 23:30.",
-            "bot"
-          );
-        }, 400);
-
-      }
+      chatMessages.scrollTop =
+        chatMessages.scrollHeight;
 
     }
 
+
+    /* =========================
+       NORMALIZE GREEK / ENGLISH
+       ========================= */
+
+    function normalize(text) {
+
+      return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’']/g, "")
+        .trim();
+
+    }
+
+
+    /* =========================
+       FORMAT DATE
+       ========================= */
+
+    function formatDate(date) {
+
+      if (!date) {
+        return "";
+      }
+
+      return date.toLocaleDateString(
+        "en-GB",
+        {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    /* =========================
+       PARSE DAY OF WEEK
+       ========================= */
+
+    function detectWeekday(text) {
+
+      const days = {
+
+        sunday: 0,
+        monday: 1,
+        tuesday: 2,
+        wednesday: 3,
+        thursday: 4,
+        friday: 5,
+        saturday: 6,
+
+        kyriaki: 0,
+        deftera: 1,
+        triti: 2,
+        tetarti: 3,
+        pempti: 4,
+        paraskevi: 5,
+        savvato: 6
+
+      };
+
+      const today =
+        new Date();
+
+      const currentDay =
+        today.getDay();
+
+      for (const dayName in days) {
+
+        if (text.includes(dayName)) {
+
+          let difference =
+            (days[dayName] - currentDay + 7) % 7;
+
+          if (difference === 0) {
+            difference = 7;
+          }
+
+          const result =
+            new Date(today);
+
+          result.setDate(
+            today.getDate() + difference
+          );
+
+          return result;
+
+        }
+
+      }
+
+      return null;
+
+    }
+
+
+    /* =========================
+       PARSE TODAY / TOMORROW
+       ========================= */
+
+    function detectRelativeDate(text) {
+
+      const today =
+        new Date();
+
+      if (
+        text.includes("today") ||
+        text.includes("simera")
+      ) {
+
+        return today;
+
+      }
+
+      if (
+        text.includes("tomorrow") ||
+        text.includes("avrio")
+      ) {
+
+        const tomorrow =
+          new Date(today);
+
+        tomorrow.setDate(
+          today.getDate() + 1
+        );
+
+        return tomorrow;
+
+      }
+
+      return null;
+
+    }
+
+
+    /* =========================
+       PARSE NUMERIC DATE
+       ========================= */
+
+    function detectNumericDate(originalText) {
+
+      const match =
+        originalText.match(
+          /\b(\d{1,2})[\/.-](\d{1,2})(?:[\/.-](\d{2,4}))?\b/
+        );
+
+      if (!match) {
+        return null;
+      }
+
+      const day =
+        Number(match[1]);
+
+      const month =
+        Number(match[2]) - 1;
+
+      let year =
+        match[3]
+          ? Number(match[3])
+          : new Date().getFullYear();
+
+      if (year < 100) {
+        year += 2000;
+      }
+
+      const result =
+        new Date(
+          year,
+          month,
+          day
+        );
+
+      if (
+        result.getDate() !== day ||
+        result.getMonth() !== month
+      ) {
+        return null;
+      }
+
+      return result;
+
+    }
+
+
+    /* =========================
+       DETECT DATE
+       ========================= */
+
+    function detectDate(originalText) {
+
+      const text =
+        normalize(originalText);
+
+      const relative =
+        detectRelativeDate(text);
+
+      if (relative) {
+        return relative;
+      }
+
+      const numeric =
+        detectNumericDate(originalText);
+
+      if (numeric) {
+        return numeric;
+      }
+
+      return detectWeekday(text);
+
+    }
+
+
+    /* =========================
+       DETECT TIME
+       ========================= */
+
+    function detectTime(text) {
+
+      const timeMatch =
+        text.match(
+          /\b([01]?\d|2[0-3])[:.][0-5]\d\b/
+        );
+
+      if (timeMatch) {
+
+        return timeMatch[0]
+          .replace(".", ":");
+
+      }
+
+      const ampmMatch =
+        text.match(
+          /\b(1[0-2]|0?[1-9])\s*(am|pm)\b/i
+        );
+
+      if (ampmMatch) {
+
+        let hour =
+          Number(ampmMatch[1]);
+
+        const period =
+          ampmMatch[2].toLowerCase();
+
+        if (
+          period === "pm" &&
+          hour !== 12
+        ) {
+          hour += 12;
+        }
+
+        if (
+          period === "am" &&
+          hour === 12
+        ) {
+          hour = 0;
+        }
+
+        return (
+          String(hour).padStart(2, "0") +
+          ":00"
+        );
+
+      }
+
+      return null;
+
+    }
+
+
+    /* =========================
+       DETECT GUEST COUNT
+       ========================= */
+
+    function detectGuests(text) {
+
+      const patterns = [
+
+        /(?:for|gia)\s+(\d+)\s*(?:guests?|people|persons?|atoma|atomon)?/i,
+
+        /(\d+)\s*(?:guests?|people|persons?|atoma|atomon)/i,
+
+        /(\d+)\s*(?:of us)/i,
+
+        /(\d+)\s*ατομα/i,
+
+        /(\d+)\s*ατομων/i
+
+      ];
+
+      for (
+        const pattern of patterns
+      ) {
+
+        const match =
+          text.match(pattern);
+
+        if (match) {
+
+          const number =
+            Number(match[1]);
+
+          if (
+            number >= 1 &&
+            number <= 50
+          ) {
+            return number;
+          }
+
+        }
+
+      }
+
+      return null;
+
+    }
+
+
+    /* =========================
+       RESERVATION INTENT
+       ========================= */
+
+    function isReservation(text) {
+
+      const t =
+        normalize(text);
+
+      const keywords = [
+
+        "reservation",
+        "reserve",
+        "booking",
+        "book a table",
+        "book table",
+        "table for",
+        "dinner for",
+
+        "κρατηση",
+        "κρατησω",
+        "κρατηση τραπεζιου",
+        "κλεισω τραπεζι",
+        "κλεισω τραπεζι",
+        "τραπεζι",
+        "δειπνο"
+
+      ];
+
+      return keywords.some(
+        keyword =>
+          t.includes(keyword)
+      );
+
+    }
+
+
+    /* =========================
+       RESERVATION RESPONSE
+       ========================= */
+
+    function handleReservation(text) {
+
+      const guests =
+        detectGuests(text);
+
+      const date =
+        detectDate(text);
+
+      const time =
+        detectTime(text);
+
+
+      if (guests) {
+        reservation.guests = guests;
+      }
+
+      if (date) {
+        reservation.date = date;
+      }
+
+      if (time) {
+        reservation.time = time;
+      }
+
+
+      /* ALL THREE DETAILS */
+
+      if (
+        reservation.guests &&
+        reservation.date &&
+        reservation.time
+      ) {
+
+        waitingFor =
+          "name";
+
+        return `
+          <strong>Perfect ✨</strong><br><br>
+
+          I have your reservation request for
+          <strong>${reservation.guests} guests</strong>
+          on
+          <strong>${formatDate(reservation.date)}</strong>
+          at
+          <strong>${reservation.time}</strong>.<br><br>
+
+          What name should I put on the reservation?
+        `;
+
+      }
+
+
+      /* GUESTS */
+
+      if (!reservation.guests) {
+
+        waitingFor =
+          "guests";
+
+        return `
+          Of course ✨<br><br>
+
+          How many guests will be joining you?
+        `;
+
+      }
+
+
+      /* DATE */
+
+      if (!reservation.date) {
+
+        waitingFor =
+          "date";
+
+        return `
+          Wonderful.<br><br>
+
+          What date would you like to visit us?
+        `;
+
+      }
+
+
+      /* TIME */
+
+      if (!reservation.time) {
+
+        waitingFor =
+          "time";
+
+        return `
+          Perfect.<br><br>
+
+          What time would you prefer?
+          Our dinner service runs from
+          <strong>18:00 to 23:30</strong>.
+        `;
+
+      }
+
+    }
+
+
+    /* =========================
+       HANDLE WAITING ANSWERS
+       ========================= */
+
+    function handleWaitingAnswer(text) {
+
+      if (waitingFor === "guests") {
+
+        const guests =
+          detectGuests(text);
+
+        if (!guests) {
+
+          return `
+            Please tell me the number of guests,
+            for example <strong>4 guests</strong>.
+          `;
+
+        }
+
+        reservation.guests =
+          guests;
+
+        waitingFor = null;
+
+        return handleReservation("");
+
+      }
+
+
+      if (waitingFor === "date") {
+
+        const date =
+          detectDate(text);
+
+        if (!date) {
+
+          return `
+            Please give me a date, for example
+            <strong>Friday</strong>,
+            <strong>tomorrow</strong> or
+            <strong>15/09</strong>.
+          `;
+
+        }
+
+        reservation.date =
+          date;
+
+        waitingFor = null;
+
+        return handleReservation("");
+
+      }
+
+
+      if (waitingFor === "time") {
+
+        const time =
+          detectTime(text);
+
+        if (!time) {
+
+          return `
+            Please give me a time, for example
+            <strong>21:00</strong>.
+          `;
+
+        }
+
+        reservation.time =
+          time;
+
+        waitingFor = null;
+
+        return handleReservation("");
+
+      }
+
+
+      if (waitingFor === "name") {
+
+        reservation.name =
+          text.trim();
+
+        waitingFor =
+          "phone";
+
+        return `
+          Thank you, <strong>${reservation.name}</strong>. ✨<br><br>
+
+          What phone number should our team use
+          to contact you?
+        `;
+
+      }
+
+
+      if (waitingFor === "phone") {
+
+        reservation.phone =
+          text.trim();
+
+        waitingFor = null;
+
+        const summary = `
+          <strong>Reservation request ready ✨</strong><br><br>
+
+          <strong>Guests:</strong>
+          ${reservation.guests}<br>
+
+          <strong>Date:</strong>
+          ${formatDate(reservation.date)}<br>
+
+          <strong>Time:</strong>
+          ${reservation.time}<br>
+
+          <strong>Name:</strong>
+          ${reservation.name}<br>
+
+          <strong>Phone:</strong>
+          ${reservation.phone}<br><br>
+
+          This is a demonstration assistant, so no
+          real reservation has been made. Please submit
+          the reservation form on the website or contact
+          our team to confirm availability.
+        `;
+
+        return summary;
+
+      }
+
+      return null;
+
+    }
+
+
+    /* =========================
+       MAIN AI
+       ========================= */
+
+    function getAIResponse(userText) {
+
+      const text =
+        normalize(userText);
+
+
+      /* WAITING FOR RESERVATION DETAILS */
+
+      if (waitingFor) {
+
+        const waitingResponse =
+          handleWaitingAnswer(userText);
+
+        if (waitingResponse) {
+          return waitingResponse;
+        }
+
+      }
+
+
+      /* RESERVATION */
+
+      if (isReservation(userText)) {
+
+        return handleReservation(userText);
+
+      }
+
+
+      /* LOCATION */
+
+      if (
+        text.includes("where") ||
+        text.includes("location") ||
+        text.includes("located") ||
+        text.includes("address") ||
+        text.includes("direction") ||
+        text.includes("directions") ||
+        text.includes("που βρισκεται") ||
+        text.includes("που ειστε") ||
+        text.includes("που εισαστε") ||
+        text.includes("διευθυνση") ||
+        text.includes("τοποθεσια") ||
+        text.includes("που ειναι")
+      ) {
+
+        return `
+          <strong>📍 Mermaids Restaurant & Wine</strong><br><br>
+
+          We are located at:<br><br>
+
+          <strong>
+            ${MERMAIDS.address}
+          </strong><br><br>
+
+          You can also find our contact details
+          in the Contact section of the website.
+        `;
+
+      }
+
+
+      /* HOURS */
+
+      if (
+        text.includes("hours") ||
+        text.includes("opening hours") ||
+        text.includes("open") ||
+        text.includes("when do you open") ||
+        text.includes("what time") ||
+        text.includes("ωραριο") ||
+        text.includes("ωρες") ||
+        text.includes("ανοιχτα") ||
+        text.includes("τι ωρα")
+      ) {
+
+        return `
+          <strong>🕐 Opening Hours</strong><br><br>
+
+          We are open
+          <strong>Tuesday through Sunday</strong>
+          for dinner.<br><br>
+
+          <strong>18:00 — 23:30</strong><br><br>
+
+          We are closed on Mondays.
+        `;
+
+      }
+
+
+      /* MENU */
+
+      if (
+        text.includes("menu") ||
+        text.includes("food") ||
+        text.includes("dish") ||
+        text.includes("dishes") ||
+        text.includes("eat") ||
+        text.includes("starter") ||
+        text.includes("main course") ||
+        text.includes("dessert") ||
+        text.includes("μενου") ||
+        text.includes("φαγητο") ||
+        text.includes("φαω") ||
+        text.includes("πιατα") ||
+        text.includes("πιατο")
+      ) {
+
+        return `
+          <strong>🍽️ Our Menu</strong><br><br>
+
+          <strong>Starters</strong><br>
+          • Smoked Aubergine<br>
+          • Sea Bream Carpaccio<br>
+          • Grilled Octopus<br><br>
+
+          <strong>Main Courses</strong><br>
+          • Sea Bass Fillet<br>
+          • Truffle Risotto<br>
+          • Slow Cooked Lamb<br><br>
+
+          <strong>Desserts</strong><br>
+          • Baklava Mille-Feuille<br>
+          • Dark Chocolate Tart<br>
+          • Greek Yogurt<br><br>
+
+          Our cuisine is modern Mediterranean.
+          You can ask me about any specific dish.
+        `;
+
+      }
+
+
+      /* SPECIFIC DISH */
+
+      if (
+        text.includes("octopus") ||
+        text.includes("χταποδι")
+      ) {
+
+        return `
+          <strong>🐙 Grilled Octopus</strong><br><br>
+
+          Our Grilled Octopus is served with
+          fava, capers and aged vinegar.
+        `;
+
+      }
+
+
+      if (
+        text.includes("risotto") ||
+        text.includes("ριζοτο")
+      ) {
+
+        return `
+          <strong>🍄 Truffle Risotto</strong><br><br>
+
+          Truffle Risotto with parmesan
+          and wild mushrooms.
+        `;
+
+      }
+
+
+      if (
+        text.includes("lamb") ||
+        text.includes("αρνι")
+      ) {
+
+        return `
+          <strong>🍷 Slow Cooked Lamb</strong><br><br>
+
+          Slow Cooked Lamb with potato purée,
+          herbs and red wine jus.
+        `;
+
+      }
+
+
+      if (
+        text.includes("sea bass") ||
+        text.includes("λαβρακι")
+      ) {
+
+        return `
+          <strong>🐟 Sea Bass Fillet</strong><br><br>
+
+          Sea Bass Fillet with seasonal vegetables
+          and lemon butter.
+        `;
+
+      }
+
+
+      /* WINE */
+
+      if (
+        text.includes("wine") ||
+        text.includes("wine list") ||
+        text.includes("bottle") ||
+        text.includes("pairing") ||
+        text.includes("κρασι") ||
+        text.includes("κρασια") ||
+        text.includes("κρασιου")
+      ) {
+
+        return `
+          <strong>🍷 Our Wine Collection</strong><br><br>
+
+          ${MERMAIDS.wine}<br><br>
+
+          If you tell me what you're eating,
+          I can suggest a style of wine
+          that would pair beautifully with it.
+        `;
+
+      }
+
+
+      /* PRIVATE EVENTS */
+
+      if (
+        text.includes("event") ||
+        text.includes("events") ||
+        text.includes("private") ||
+        text.includes("party") ||
+        text.includes("birthday") ||
+        text.includes("corporate") ||
+        text.includes("celebration") ||
+        text.includes("γενεθ") ||
+        text.includes("εκδηλ") ||
+        text.includes("παρτι") ||
+        text.includes("γιορτ") ||
+        text.includes("εταιρ")
+      ) {
+
+        return `
+          <strong>✨ Private Events</strong><br><br>
+
+          We host
+          <strong>birthdays, corporate dinners
+          and private celebrations</strong>.<br><br>
+
+          Tell me the type of event,
+          preferred date and approximate number
+          of guests, and I can help you prepare
+          the enquiry for our team.
+        `;
+
+      }
+
+
+      /* VEGETARIAN / VEGAN */
+
+      if (
+        text.includes("vegetarian") ||
+        text.includes("vegan") ||
+        text.includes("vegetarian options") ||
+        text.includes("χορτοφαγ") ||
+        text.includes("vegan")
+      ) {
+
+        return `
+          <strong>🌿 Dietary Preferences</strong><br><br>
+
+          We can discuss vegetarian and other
+          dietary requirements with you.<br><br>
+
+          Please mention your requirements when
+          making your reservation so our team
+          can advise you appropriately.
+        `;
+
+      }
+
+
+      /* ALLERGY */
+
+      if (
+        text.includes("allergy") ||
+        text.includes("allergic") ||
+        text.includes("allerg") ||
+        text.includes("αλλεργ")
+      ) {
+
+        return `
+          <strong>⚠️ Allergies & Dietary Requirements</strong><br><br>
+
+          Please let our team know about any
+          allergies or dietary requirements
+          when making your reservation.<br><br>
+
+          Our team can then advise you about
+          suitable dishes.
+        `;
+
+      }
+
+
+      /* CONTACT */
+
+      if (
+        text.includes("contact") ||
+        text.includes("phone") ||
+        text.includes("telephone") ||
+        text.includes("email") ||
+        text.includes("call") ||
+        text.includes("επικοινων") ||
+        text.includes("τηλεφων") ||
+        text.includes("email")
+      ) {
+
+        return `
+          <strong>📞 Contact Mermaids</strong><br><br>
+
+          <strong>Phone:</strong>
+          ${MERMAIDS.phone}<br><br>
+
+          <strong>Email:</strong>
+          ${MERMAIDS.email}<br><br>
+
+          We also accept private event
+          and group booking enquiries.
+        `;
+
+      }
+
+
+      /* THANK YOU */
+
+      if (
+        text.includes("thank") ||
+        text.includes("thanks") ||
+        text.includes("ευχαριστω") ||
+        text.includes("ευχαριστ")
+      ) {
+
+        return `
+          You're very welcome. ✨<br><br>
+
+          We look forward to welcoming you
+          at Mermaids Restaurant & Wine.
+        `;
+
+      }
+
+
+      /* GREETING */
+
+      if (
+        text === "hi" ||
+        text === "hello" ||
+        text === "hey" ||
+        text === "good morning" ||
+        text === "good evening" ||
+        text === "γεια" ||
+        text === "γεια σου" ||
+        text === "καλημερα" ||
+        text === "καλησπερα" ||
+        text === "καληνυχτα"
+      ) {
+
+        return `
+          Hello and welcome to
+          <strong>Mermaids Restaurant & Wine</strong> ✨<br><br>
+
+          I'm your Mermaids AI Assistant.
+          I can help you with reservations,
+          our menu, wine, opening hours,
+          location, dietary requirements
+          and private events.
+        `;
+
+      }
+
+
+      /* HELP */
+
+      if (
+        text.includes("help") ||
+        text.includes("what can you do") ||
+        text.includes("τι μπορεις") ||
+        text.includes("πως μπορεις")
+      ) {
+
+        return `
+          <strong>✦ I can help with:</strong><br><br>
+
+          📅 Reservations<br>
+          🍽️ Menu & dishes<br>
+          🍷 Wine recommendations<br>
+          🕐 Opening hours<br>
+          📍 Location & address<br>
+          🌿 Dietary requirements<br>
+          🎉 Private events<br>
+          📞 Contact information
+        `;
+
+      }
+
+
+      /* DEFAULT */
+
+      return `
+        I'd be happy to help. ✨<br><br>
+
+        You can ask me about:<br><br>
+
+        📍 <strong>Location</strong><br>
+        🍽️ <strong>Menu</strong><br>
+        🍷 <strong>Wine</strong><br>
+        🕐 <strong>Opening hours</strong><br>
+        📅 <strong>Reservations</strong><br>
+        🌿 <strong>Dietary requirements</strong><br>
+        🎉 <strong>Private events</strong><br>
+        📞 <strong>Contact</strong>
+      `;
+
+    }
+
+
+    /* =========================
+       SEND MESSAGE
+       ========================= */
 
     function sendMessage() {
 
-      const input = document.getElementById("chatInput");
+      const text =
+        chatInput.value.trim();
 
-      const text = input.value.trim();
+      if (!text) {
+        return;
+      }
 
-      if (!text) return;
+      addMessage(
+        escapeHTML(text),
+        "user"
+      );
 
-      addMessage(text, "user");
+      chatInput.value = "";
 
-      input.value = "";
+      setTimeout(function () {
 
-      setTimeout(() => {
+        const response =
+          getAIResponse(text);
 
-        const lower = text.toLowerCase();
+        addMessage(
+          response,
+          "bot"
+        );
 
-        let response =
-          "I'd be happy to help. You can ask me about our menu, reservations, wine, opening hours or private events. ✨";
-
-
-        if (
-          lower.includes("menu") ||
-          lower.includes("food") ||
-          lower.includes("eat") ||
-          lower.includes("φαγη") ||
-          lower.includes("μενου")
-        ) {
-
-          response =
-            "Our menu focuses on modern Mediterranean cuisine, including seafood, meat, vegetarian dishes and carefully selected desserts. Take a look at our Menu section for some of our signature dishes.";
-
-        }
-
-
-        else if (
-          lower.includes("reserv") ||
-          lower.includes("table") ||
-          lower.includes("book") ||
-          lower.includes("κρατ")
-        ) {
-
-          response =
-            "I'd love to help with your reservation. Please use the reservation form on our website and provide your preferred date, time and number of guests.";
-
-        }
-
-
-        else if (
-          lower.includes("wine") ||
-          lower.includes("κρασι") ||
-          lower.includes("κρασί")
-        ) {
-
-          response =
-            "Our cellar features Greek and international wines. We can recommend a bottle based on your dishes and personal preferences.";
-
-        }
-
-
-        else if (
-          lower.includes("event") ||
-          lower.includes("birthday") ||
-          lower.includes("corporate") ||
-          lower.includes("party") ||
-          lower.includes("εκδηλ") ||
-          lower.includes("γενεθ")
-        ) {
-
-          response =
-            "We'd be delighted to help with a private event. We host birthdays, corporate dinners and private celebrations. Tell me the date, number of guests and type of event.";
-
-        }
-
-
-        else if (
-          lower.includes("hour") ||
-          lower.includes("open") ||
-          lower.includes("ωρα") ||
-          lower.includes("ωρά")
-        ) {
-
-          response =
-            "Mermaids is open Tuesday through Sunday for dinner, from 18:00 to 23:30.";
-
-        }
-
-
-        else if (
-          lower.includes("vegetarian") ||
-          lower.includes("vegan") ||
-          lower.includes("χορτο")
-        ) {
-
-          response =
-            "We offer vegetarian-friendly choices and can discuss dietary requirements with you when making a reservation.";
-
-        }
-
-
-        else if (
-          lower.includes("hello") ||
-          lower.includes("hi") ||
-          lower.includes("γεια")
-        ) {
-
-          response =
-            "Hello and welcome to Mermaids. ✨ How can I assist you today?";
-
-        }
-
-
-        addMessage(response, "bot");
-
-      }, 500);
+      }, 350);
 
     }
 
 
-    /* RESERVATION DEMO */
+    /* =========================
+       QUICK QUESTIONS
+       ========================= */
 
-    document
-      .getElementById("reservationForm")
-      .addEventListener("submit", function(event) {
+    function quickQuestion(type) {
+
+      const questions = {
+
+        menu:
+          "Tell me about your menu.",
+
+        reservation:
+          "I want to make a reservation.",
+
+        wine:
+          "Tell me about your wine selection.",
+
+        events:
+          "I'm interested in a private event.",
+
+        hours:
+          "What are your opening hours?",
+
+        location:
+          "Where is the restaurant located?"
+
+      };
+
+      const question =
+        questions[type];
+
+      if (!question) {
+        return;
+      }
+
+      chatInput.value =
+        question;
+
+      sendMessage();
+
+    }
+
+
+    /* =========================
+       BASIC HTML ESCAPE
+       ========================= */
+
+    function escapeHTML(text) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent =
+        text;
+
+      return div.innerHTML;
+
+    }
+
+
+    /* =========================
+       ENTER KEY
+       ========================= */
+
+    chatInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Enter") {
+
+          event.preventDefault();
+
+          sendMessage();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       RESERVATION FORM
+       ========================= */
+
+    reservationForm.addEventListener(
+      "submit",
+      function(event) {
 
         event.preventDefault();
 
@@ -1696,746 +2936,35 @@
           date +
           " at " +
           time +
-          " has been received. Our team will contact you shortly."
+          " has been received. " +
+          "Our team will contact you shortly."
         );
+
 
         this.reset();
 
-      });
+      }
+    );
+
+
+    /* =========================
+       MAKE FUNCTIONS AVAILABLE
+       TO INLINE HTML BUTTONS
+       ========================= */
+
+    window.openChat =
+      openChat;
+
+    window.closeChat =
+      closeChat;
+
+    window.sendMessage =
+      sendMessage;
+
+    window.quickQuestion =
+      quickQuestion;
 
   </script>
-<script>
-/* ==========================================
-   MERMAIDS AI ASSISTANT — ELåiVA
-   Smart Restaurant Demo Assistant
-   ========================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
-
-  const chatInput = document.getElementById("chatInput");
-  const chatMessages = document.getElementById("chatMessages");
-  const chatWindow = document.getElementById("chatWindow");
-
-  if (!chatInput || !chatMessages) {
-    console.warn("Mermaids AI: Chat elements not found.");
-    return;
-  }
-
-  let reservation = {
-    guests: null,
-    date: null,
-    time: null,
-    name: null,
-    phone: null,
-    email: null
-  };
-
-  let waitingFor = null;
-
-  /* =========================
-     RESTAURANT INFORMATION
-     ========================= */
-
-  const restaurant = {
-    name: "Mermaids Restaurant & Wine",
-
-    location:
-      "Mermaids Restaurant & Wine is located in a beautiful Mediterranean setting by the sea.",
-
-    address:
-      "For the purposes of this demonstration, the exact address is available through our reservation/contact team.",
-
-    hours:
-      "We are open for dinner service from 18:00 to 23:30.",
-
-    cuisine:
-      "Mediterranean cuisine with a modern fine-dining approach.",
-
-    wine:
-      "We offer a carefully selected wine collection featuring Greek and international wines.",
-
-    events:
-      "Mermaids Restaurant & Wine hosts private dinners, celebrations, corporate events and special occasions.",
-
-    contact:
-      "For reservations and private events, please use the reservation form or contact our team.",
-
-    menu:
-      "Our menu includes Mediterranean-inspired starters, premium main courses, fresh seafood, desserts and carefully selected wines."
-  };
-
-
-  /* =========================
-     ADD MESSAGE
-     ========================= */
-
-  function addMessage(text, sender) {
-
-    const message = document.createElement("div");
-
-    message.className =
-      sender === "user"
-        ? "chat-message user-message"
-        : "chat-message bot-message";
-
-    message.innerHTML = text;
-
-    chatMessages.appendChild(message);
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-
-  /* =========================
-     NORMALIZE TEXT
-     ========================= */
-
-  function normalize(text) {
-
-    return text
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
-
-
-  /* =========================
-     OPEN / CLOSE CHAT
-     ========================= */
-
-  window.openChat = function () {
-
-    if (chatWindow) {
-      chatWindow.classList.add("active");
-    }
-
-  };
-
-
-  window.closeChat = function () {
-
-    if (chatWindow) {
-      chatWindow.classList.remove("active");
-    }
-
-  };
-
-
-  /* =========================
-     QUICK QUESTIONS
-     ========================= */
-
-  window.quickQuestion = function (question) {
-
-    chatInput.value = question;
-
-    sendMessage();
-
-  };
-
-
-  /* =========================
-     DATE DETECTION
-     ========================= */
-
-  function detectDate(text) {
-
-    const t = normalize(text);
-
-    const days = {
-      sunday: 0,
-      monday: 1,
-      tuesday: 2,
-      wednesday: 3,
-      thursday: 4,
-      friday: 5,
-      saturday: 6,
-
-      kyriaki: 0,
-      deftera: 1,
-      triti: 2,
-      tetarti: 3,
-      pempti: 4,
-      paraskevi: 5,
-      savvato: 6
-    };
-
-    for (const day in days) {
-
-      if (t.includes(day)) {
-
-        const today = new Date();
-
-        const currentDay = today.getDay();
-
-        let difference =
-          (days[day] - currentDay + 7) % 7;
-
-        if (difference === 0) {
-          difference = 7;
-        }
-
-        const result = new Date(today);
-
-        result.setDate(
-          today.getDate() + difference
-        );
-
-        return result;
-      }
-    }
-
-    if (t.includes("tomorrow") || t.includes("avrio")) {
-
-      const tomorrow = new Date();
-
-      tomorrow.setDate(
-        tomorrow.getDate() + 1
-      );
-
-      return tomorrow;
-    }
-
-    if (t.includes("today") || t.includes("simera")) {
-
-      return new Date();
-    }
-
-    const numericDate =
-      text.match(
-        /\b(\d{1,2})[\/.-](\d{1,2})(?:[\/.-](\d{2,4}))?\b/
-      );
-
-    if (numericDate) {
-
-      const day = Number(numericDate[1]);
-      const month = Number(numericDate[2]) - 1;
-
-      let year =
-        numericDate[3]
-          ? Number(numericDate[3])
-          : new Date().getFullYear();
-
-      if (year < 100) {
-        year += 2000;
-      }
-
-      return new Date(year, month, day);
-    }
-
-    return null;
-  }
-
-
-  /* =========================
-     TIME DETECTION
-     ========================= */
-
-  function detectTime(text) {
-
-    const match =
-      text.match(
-        /\b([01]?\d|2[0-3])[:.][0-5]\d\b/
-      );
-
-    if (match) {
-
-      return match[0].replace(".", ":");
-
-    }
-
-    const ampm =
-      text.match(
-        /\b(1[0-2]|0?[1-9])\s*(am|pm)\b/i
-      );
-
-    if (ampm) {
-
-      let hour = Number(ampm[1]);
-
-      const period =
-        ampm[2].toLowerCase();
-
-      if (period === "pm" && hour !== 12) {
-        hour += 12;
-      }
-
-      if (period === "am" && hour === 12) {
-        hour = 0;
-      }
-
-      return String(hour).padStart(2, "0") + ":00";
-    }
-
-    return null;
-  }
-
-
-  /* =========================
-     GUEST DETECTION
-     ========================= */
-
-  function detectGuests(text) {
-
-    const patterns = [
-
-      /(?:for|gia)\s+(\d+)\s*(?:guests?|people|persons?|atoma|atomon)?/i,
-
-      /(\d+)\s*(?:guests?|people|persons?|atoma|atomon)/i,
-
-      /(\d+)\s*(?:of\s+us)/i
-
-    ];
-
-    for (const pattern of patterns) {
-
-      const match = text.match(pattern);
-
-      if (match) {
-
-        return Number(match[1]);
-
-      }
-    }
-
-    return null;
-  }
-
-
-  /* =========================
-     FORMAT DATE
-     ========================= */
-
-  function formatDate(date) {
-
-    if (!date) return "";
-
-    return date.toLocaleDateString(
-      "en-GB",
-      {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-      }
-    );
-  }
-
-
-  /* =========================
-     RESERVATION DETECTION
-     ========================= */
-
-  function isReservation(text) {
-
-    const t = normalize(text);
-
-    const keywords = [
-
-      "reservation",
-      "reserve",
-      "book a table",
-      "booking",
-      "table",
-      "dinner for",
-      "κρατηση",
-      "κρατησω",
-      "κρατηση τραπεζιου",
-      "κλεισω τραπεζι",
-      "τραπεζι",
-      "δειπνο"
-
-    ];
-
-    return keywords.some(keyword =>
-      t.includes(keyword)
-    );
-  }
-
-
-  /* =========================
-     RESERVATION HANDLER
-     ========================= */
-
-  function handleReservation(text) {
-
-    const guests =
-      detectGuests(text);
-
-    const date =
-      detectDate(text);
-
-    const time =
-      detectTime(text);
-
-
-    if (guests) {
-      reservation.guests = guests;
-    }
-
-    if (date) {
-      reservation.date = date;
-    }
-
-    if (time) {
-      reservation.time = time;
-    }
-
-
-    /* ALL INFORMATION */
-
-    if (
-      reservation.guests &&
-      reservation.date &&
-      reservation.time
-    ) {
-
-      waitingFor = null;
-
-      return `
-        <strong>Perfect ✨</strong><br><br>
-
-        I have your reservation request for
-        <strong>${reservation.guests} guests</strong>
-        on
-        <strong>${formatDate(reservation.date)}</strong>
-        at
-        <strong>${reservation.time}</strong>.<br><br>
-
-        To complete the reservation request,
-        please provide your <strong>name</strong>
-        and <strong>phone number</strong>.
-      `;
-    }
-
-
-    /* MISSING GUESTS */
-
-    if (!reservation.guests) {
-
-      waitingFor = "guests";
-
-      return `
-        Of course ✨<br><br>
-        How many guests will be joining you?
-      `;
-    }
-
-
-    /* MISSING DATE */
-
-    if (!reservation.date) {
-
-      waitingFor = "date";
-
-      return `
-        Wonderful. What date would you like
-        to visit us?
-      `;
-    }
-
-
-    /* MISSING TIME */
-
-    if (!reservation.time) {
-
-      waitingFor = "time";
-
-      return `
-        Perfect. What time would you prefer
-        for your reservation?
-      `;
-    }
-
-  }
-
-
-  /* =========================
-     MAIN AI RESPONSE
-     ========================= */
-
-  function getAIResponse(userText) {
-
-    const text =
-      normalize(userText);
-
-
-    /* RESERVATION */
-
-    if (
-      isReservation(userText) ||
-      waitingFor
-    ) {
-
-      return handleReservation(userText);
-
-    }
-
-
-    /* LOCATION */
-
-    if (
-      text.includes("where") ||
-      text.includes("location") ||
-      text.includes("located") ||
-      text.includes("address") ||
-      text.includes("που βρισκεται") ||
-      text.includes("που ειστε") ||
-      text.includes("διευθυνση") ||
-      text.includes("τοποθεσια")
-    ) {
-
-      return `
-        <strong>📍 Mermaids Restaurant & Wine</strong><br><br>
-
-        ${restaurant.location}<br><br>
-
-        Our restaurant address and directions
-        are available through our contact team
-        and reservation service.
-      `;
-    }
-
-
-    /* MENU */
-
-    if (
-      text.includes("menu") ||
-      text.includes("food") ||
-      text.includes("dish") ||
-      text.includes("eat") ||
-      text.includes("μενου") ||
-      text.includes("φαγητο") ||
-      text.includes("φαω") ||
-      text.includes("πιατα")
-    ) {
-
-      return `
-        <strong>🍽️ Our Menu</strong><br><br>
-
-        ${restaurant.menu}<br><br>
-
-        You can also ask me about specific dishes
-        or dietary preferences.
-      `;
-    }
-
-
-    /* WINE */
-
-    if (
-      text.includes("wine") ||
-      text.includes("κρασι") ||
-      text.includes("κρασια") ||
-      text.includes("wine list")
-    ) {
-
-      return `
-        <strong>🍷 Wine</strong><br><br>
-
-        ${restaurant.wine}<br><br>
-
-        I can also help you choose a wine
-        to accompany your meal.
-      `;
-    }
-
-
-    /* OPENING HOURS */
-
-    if (
-      text.includes("hours") ||
-      text.includes("open") ||
-      text.includes("opening") ||
-      text.includes("ωραριο") ||
-      text.includes("ανοιχτα") ||
-      text.includes("κλεινετε")
-    ) {
-
-      return `
-        <strong>🕐 Opening Hours</strong><br><br>
-
-        ${restaurant.hours}
-      `;
-    }
-
-
-    /* EVENTS */
-
-    if (
-      text.includes("event") ||
-      text.includes("events") ||
-      text.includes("private") ||
-      text.includes("party") ||
-      text.includes("celebration") ||
-      text.includes("εκδηλωση") ||
-      text.includes("παρτι") ||
-      text.includes("γιορτη")
-    ) {
-
-      return `
-        <strong>✨ Private Events</strong><br><br>
-
-        ${restaurant.events}<br><br>
-
-        Tell me what type of event you are
-        planning and our team can help you
-        arrange the details.
-      `;
-    }
-
-
-    /* VEGETARIAN */
-
-    if (
-      text.includes("vegetarian") ||
-      text.includes("vegan") ||
-      text.includes("χορτο") ||
-      text.includes("vegan")
-    ) {
-
-      return `
-        Absolutely 🌿<br><br>
-
-        We can help guests with vegetarian
-        and dietary preferences. Please mention
-        your requirements when making your
-        reservation.
-      `;
-    }
-
-
-    /* CONTACT */
-
-    if (
-      text.includes("contact") ||
-      text.includes("phone") ||
-      text.includes("email") ||
-      text.includes("επικοινων") ||
-      text.includes("τηλεφων") ||
-      text.includes("email")
-    ) {
-
-      return `
-        <strong>📞 Contact</strong><br><br>
-
-        ${restaurant.contact}
-      `;
-    }
-
-
-    /* GREETING */
-
-    if (
-      text === "hi" ||
-      text === "hello" ||
-      text === "hey" ||
-      text === "γεια" ||
-      text === "καλησπερα" ||
-      text === "καλημερα"
-    ) {
-
-      return `
-        Hello and welcome to
-        <strong>Mermaids Restaurant & Wine</strong> ✨<br><br>
-
-        I'm the Mermaids AI Assistant.
-        I can help you with reservations,
-        our menu, wine, opening hours,
-        location and private events.
-      `;
-    }
-
-
-    /* THANK YOU */
-
-    if (
-      text.includes("thank") ||
-      text.includes("thanks") ||
-      text.includes("ευχαριστω")
-    ) {
-
-      return `
-        You're very welcome ✨<br><br>
-
-        We look forward to welcoming you
-        at Mermaids Restaurant & Wine.
-      `;
-    }
-
-
-    /* DEFAULT */
-
-    return `
-      I'd be happy to help ✨<br><br>
-
-      You can ask me about:
-      <br><br>
-
-      📍 <strong>Location</strong><br>
-      🍽️ <strong>Menu</strong><br>
-      🍷 <strong>Wine</strong><br>
-      🕐 <strong>Opening hours</strong><br>
-      📅 <strong>Reservations</strong><br>
-      🎉 <strong>Private events</strong>
-    `;
-  }
-
-
-  /* =========================
-     SEND MESSAGE
-     ========================= */
-
-  window.sendMessage = function () {
-
-    const text =
-      chatInput.value.trim();
-
-    if (!text) return;
-
-
-    addMessage(
-      text,
-      "user"
-    );
-
-    chatInput.value = "";
-
-
-    setTimeout(function () {
-
-      const response =
-        getAIResponse(text);
-
-      addMessage(
-        response,
-        "bot"
-      );
-
-    }, 350);
-
-  };
-
-
-  /* =========================
-     ENTER KEY
-     ========================= */
-
-  chatInput.addEventListener(
-    "keydown",
-    function (event) {
-
-      if (event.key === "Enter") {
-
-        event.preventDefault();
-
-        sendMessage();
-
-      }
-
-    }
-  );
-
-});
-</script>
 </body>
 </html>
