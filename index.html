@@ -17,15 +17,29 @@
 
 
   /* =========================
+     TEXT NORMALIZATION
+     ========================= */
+
+  function normalizeText(text) {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+
+  /* =========================
      CHAT WINDOW
      ========================= */
 
   function openChat() {
     document.getElementById("chatWindow").classList.add("open");
+
     setTimeout(() => {
       document.getElementById("chatInput").focus();
     }, 100);
   }
+
 
   function closeChat() {
     document.getElementById("chatWindow").classList.remove("open");
@@ -85,7 +99,7 @@
 
         addMessage(
           "Absolutely. ✨ I can help you with your reservation.<br><br>" +
-          "Please tell me your preferred <strong>date, time and number of guests</strong>.",
+          "Tell me your <strong>date, time and number of guests</strong> and I'll help you with the request.",
           "bot"
         );
 
@@ -102,7 +116,7 @@
 
         addMessage(
           "Our cellar features carefully selected Greek and international wines. 🍷<br><br>" +
-          "I can also help you choose a wine based on your meal. For example, I can recommend an option for seafood, meat or a vegetarian dish.",
+          "I can also help you choose a wine based on your meal.",
           "bot"
         );
 
@@ -153,28 +167,13 @@
   function getNextDayOfWeek(dayName) {
 
     const days = {
-      "sunday": 0,
-      "monday": 1,
-      "tuesday": 2,
-      "wednesday": 3,
-      "thursday": 4,
-      "friday": 5,
-      "saturday": 6,
-
-      "κυριακη": 0,
-      "κυριακή": 0,
-      "δευτερα": 1,
-      "δευτέρα": 1,
-      "τριτη": 2,
-      "τρίτη": 2,
-      "τεταρτη": 3,
-      "τετάρτη": 3,
-      "πεμπτη": 4,
-      "πέμπτη": 4,
-      "παρασκευη": 5,
-      "παρασκευή": 5,
-      "σαββατο": 6,
-      "σάββατο": 6
+      sunday: 0,
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5,
+      saturday: 6
     };
 
     if (!(dayName in days)) return null;
@@ -193,7 +192,13 @@
 
     result.setDate(today.getDate() + difference);
 
-    return result.toISOString().split("T")[0];
+    return (
+      result.getFullYear() +
+      "-" +
+      String(result.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(result.getDate()).padStart(2, "0")
+    );
   }
 
 
@@ -219,21 +224,34 @@
 
   function extractGuests(text) {
 
-    const match = text.match(
-      /(\d+)\s*(guest|guests|people|person|άτομα|ατομο|ατόμων|persons)/i
+    const clean = normalizeText(text);
+
+    let match = clean.match(
+      /(\d+)\s*(guest|guests|people|person|persons|atoma|atomon|ατομα|ατομων)/i
     );
 
     if (match) {
       return parseInt(match[1]);
     }
 
-    const simpleMatch = text.match(
-      /\b(for|για)\s+(\d+)\b/i
+
+    match = clean.match(
+      /\b(for|gia|για)\s+(\d+)\b/i
     );
 
-    if (simpleMatch) {
-      return parseInt(simpleMatch[2]);
+    if (match) {
+      return parseInt(match[2]);
     }
+
+
+    match = clean.match(
+      /\b(\d+)\s*(of\s*us|of\s*people)\b/i
+    );
+
+    if (match) {
+      return parseInt(match[1]);
+    }
+
 
     return null;
   }
@@ -245,27 +263,31 @@
 
   function extractTime(text) {
 
-    let match = text.match(
+    const clean = normalizeText(text);
+
+
+    let match = clean.match(
       /\b([01]?\d|2[0-3])[:.]([0-5]\d)\b/
     );
 
     if (match) {
 
-      let hour = String(match[1]).padStart(2, "0");
-      let minute = match[2];
+      const hour = String(match[1]).padStart(2, "0");
+
+      const minute = match[2];
 
       return `${hour}:${minute}`;
-
     }
 
 
-    match = text.match(
+    match = clean.match(
       /\b([1-9]|1[0-2])\s*(pm|am)\b/i
     );
 
     if (match) {
 
       let hour = parseInt(match[1]);
+
       const period = match[2].toLowerCase();
 
       if (period === "pm" && hour < 12) {
@@ -277,7 +299,6 @@
       }
 
       return String(hour).padStart(2, "0") + ":00";
-
     }
 
 
@@ -291,36 +312,34 @@
 
   function extractDate(text) {
 
-    const lower = text.toLowerCase();
+    const lower = normalizeText(text);
 
-    const days = [
-      "sunday",
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "κυριακη",
-      "κυριακή",
-      "δευτερα",
-      "δευτέρα",
-      "τριτη",
-      "τρίτη",
-      "τεταρτη",
-      "τετάρτη",
-      "πεμπτη",
-      "πέμπτη",
-      "παρασκευη",
-      "παρασκευή",
-      "σαββατο",
-      "σάββατο"
-    ];
 
-    for (const day of days) {
+    const days = {
+      sunday: "sunday",
+      monday: "monday",
+      tuesday: "tuesday",
+      wednesday: "wednesday",
+      thursday: "thursday",
+      friday: "friday",
+      saturday: "saturday",
+
+      kyriaki: "sunday",
+      deftera: "monday",
+      triti: "tuesday",
+      tetarti: "wednesday",
+      pempti: "thursday",
+      paraskevi: "friday",
+      savvato: "saturday"
+    };
+
+
+    for (const day in days) {
 
       if (lower.includes(day)) {
-        return getNextDayOfWeek(day);
+
+        return getNextDayOfWeek(days[day]);
+
       }
 
     }
@@ -330,10 +349,12 @@
       /\b(\d{1,2})[\/.-](\d{1,2})(?:[\/.-](\d{2,4}))?\b/
     );
 
+
     if (dateMatch) {
 
-      let day = dateMatch[1].padStart(2, "0");
-      let month = dateMatch[2].padStart(2, "0");
+      const day = dateMatch[1].padStart(2, "0");
+
+      const month = dateMatch[2].padStart(2, "0");
 
       let year = dateMatch[3];
 
@@ -346,32 +367,42 @@
       }
 
       return `${year}-${month}-${day}`;
-
     }
 
 
     if (
       lower.includes("today") ||
-      lower.includes("σήμερα")
+      lower.includes("simerа")
     ) {
 
-      return new Date().toISOString().split("T")[0];
+      const today = new Date();
 
+      return (
+        today.getFullYear() +
+        "-" +
+        String(today.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(today.getDate()).padStart(2, "0")
+      );
     }
 
 
     if (
       lower.includes("tomorrow") ||
-      lower.includes("αύριο") ||
-      lower.includes("αυριο")
+      lower.includes("avrio")
     ) {
 
       const tomorrow = new Date();
 
       tomorrow.setDate(tomorrow.getDate() + 1);
 
-      return tomorrow.toISOString().split("T")[0];
-
+      return (
+        tomorrow.getFullYear() +
+        "-" +
+        String(tomorrow.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(tomorrow.getDate()).padStart(2, "0")
+      );
     }
 
 
@@ -385,29 +416,44 @@
 
   function isReservationRequest(text) {
 
-    const lower = text.toLowerCase();
+    const lower = normalizeText(text);
 
     const keywords = [
+
       "reservation",
       "reserve",
       "book",
       "booking",
       "table",
       "dinner",
+      "restaurant",
+
+      "make a reservation",
+      "make reservation",
+      "book a table",
+      "reserve a table",
+      "want to book",
+      "would like to book",
+      "i want to book",
+      "i'd like to book",
+
+      "krat",
+      "trapez",
+      "kleiso",
+      "kleisw",
+      "kratisi",
+      "kratisi",
+      "kratisw",
+
       "κρατ",
-      "κράτ",
       "τραπεζ",
-      "τραπέζ",
-      "κλείσω",
-      "κλεισω",
-      "κλείσε",
-      "κλεισε"
+      "κλεισ"
     ];
+
 
     return keywords.some(keyword =>
       lower.includes(keyword)
     );
-
   }
 
 
@@ -419,9 +465,13 @@
 
     reservationMode = true;
 
+
     const guests = extractGuests(text);
+
     const date = extractDate(text);
+
     const time = extractTime(text);
+
 
     if (guests) {
       reservationData.guests = guests;
@@ -436,85 +486,65 @@
     }
 
 
-    const missing = [];
+    /* ALL DETAILS AVAILABLE */
+
+    if (
+      reservationData.guests &&
+      reservationData.date &&
+      reservationData.time
+    ) {
+
+      const summary =
+        "Perfect! ✨ I can help with that.<br><br>" +
+
+        "👥 <strong>" +
+        reservationData.guests +
+        " guests</strong><br>" +
+
+        "📅 <strong>" +
+        formatDate(reservationData.date) +
+        "</strong><br>" +
+
+        "🕘 <strong>" +
+        reservationData.time +
+        "</strong><br><br>" +
+
+        "Your reservation request is ready. Please complete the reservation form below and our team will confirm availability with you.";
+
+      return summary;
+    }
+
+
+    /* ASK FOR MISSING INFORMATION */
 
     if (!reservationData.guests) {
-      missing.push("number of guests");
+
+      return (
+        "Of course. ✨ How many <strong>guests</strong> will be joining you?"
+      );
+
     }
+
 
     if (!reservationData.date) {
-      missing.push("preferred date");
+
+      return (
+        "Perfect. ✨ What <strong>date</strong> would you like to visit?"
+      );
+
     }
+
 
     if (!reservationData.time) {
-      missing.push("preferred time");
-    }
 
-
-    if (missing.length > 0) {
-
-      if (
-        !reservationData.guests &&
-        !reservationData.date &&
-        !reservationData.time
-      ) {
-
-        return (
-          "Absolutely. ✨ I can help you with your reservation.<br><br>" +
-          "Please tell me your <strong>date, time and number of guests</strong>."
-        );
-
-      }
-
-
-      if (!reservationData.guests) {
-
-        return (
-          "Perfect. ✨ What will be the <strong>number of guests</strong>?"
-        );
-
-      }
-
-
-      if (!reservationData.date) {
-
-        return (
-          "Great. What <strong>date</strong> would you like to visit?"
-        );
-
-      }
-
-
-      if (!reservationData.time) {
-
-        return (
-          "Perfect. What <strong>time</strong> would you prefer?"
-        );
-
-      }
+      return (
+        "Great. ✨ What <strong>time</strong> would you prefer?"
+      );
 
     }
 
 
-    return (
-      "Perfect! ✨ I have your reservation details:<br><br>" +
-
-      "👥 <strong>" +
-      reservationData.guests +
-      " guests</strong><br>" +
-
-      "📅 <strong>" +
-      formatDate(reservationData.date) +
-      "</strong><br>" +
-
-      "🕘 <strong>" +
-      reservationData.time +
-      "</strong><br><br>" +
-
-      "To complete the reservation request, please use our reservation form below. " +
-      "Our team will confirm availability with you."
-    );
-
+    return "I'd be happy to help with your reservation. ✨";
   }
 
 
@@ -532,6 +562,7 @@
 
     if (!text) return;
 
+
     addMessage(text, "user");
 
     input.value = "";
@@ -539,67 +570,72 @@
 
     setTimeout(() => {
 
-      const lower = text.toLowerCase();
+      const lower = normalizeText(text);
 
       let response =
         "I'd be happy to help. ✨ You can ask me about our menu, reservations, wine, opening hours, private events or dietary options.";
 
 
-      /* RESERVATIONS */
+      /* =========================
+         RESERVATIONS
+         ========================= */
 
       if (
         reservationMode ||
         isReservationRequest(text) ||
-        extractGuests(text) ||
-        extractTime(text) ||
-        extractDate(text)
+        extractGuests(text) !== null ||
+        extractTime(text) !== null ||
+        extractDate(text) !== null
       ) {
 
         response = handleReservation(text);
-
       }
 
 
-      /* MENU */
+      /* =========================
+         MENU
+         ========================= */
 
       else if (
         lower.includes("menu") ||
         lower.includes("food") ||
         lower.includes("eat") ||
         lower.includes("dish") ||
-        lower.includes("φαγη") ||
-        lower.includes("μενου") ||
-        lower.includes("μενού") ||
-        lower.includes("πιάτο") ||
-        lower.includes("πιατο")
+        lower.includes("fag") ||
+        lower.includes("menou") ||
+        lower.includes("piato")
       ) {
 
         response =
           "Our menu focuses on modern Mediterranean cuisine. ✨<br><br>" +
-          "You can enjoy seafood, meat dishes, vegetarian options and carefully selected desserts.<br><br>" +
-          "Some signature dishes include <strong>Sea Bream Carpaccio, Grilled Octopus, Sea Bass Fillet, Truffle Risotto</strong> and <strong>Baklava Mille-Feuille</strong>.";
 
+          "You can enjoy seafood, meat dishes, vegetarian options and carefully selected desserts.<br><br>" +
+
+          "Some signature dishes include <strong>Sea Bream Carpaccio, Grilled Octopus, Sea Bass Fillet, Truffle Risotto</strong> and <strong>Baklava Mille-Feuille</strong>.";
       }
 
 
-      /* WINE */
+      /* =========================
+         WINE
+         ========================= */
 
       else if (
         lower.includes("wine") ||
-        lower.includes("κρασι") ||
-        lower.includes("κρασί") ||
+        lower.includes("krasi") ||
         lower.includes("bottle") ||
         lower.includes("wine list")
       ) {
 
         response =
           "Our cellar features carefully selected Greek and international wines. 🍷<br><br>" +
-          "If you tell me what you're planning to eat, I can suggest a wine style that would pair beautifully with your meal.";
 
+          "If you tell me what you're planning to eat, I can suggest a wine style that would pair beautifully with your meal.";
       }
 
 
-      /* EVENTS */
+      /* =========================
+         EVENTS
+         ========================= */
 
       else if (
         lower.includes("event") ||
@@ -607,103 +643,106 @@
         lower.includes("corporate") ||
         lower.includes("party") ||
         lower.includes("celebration") ||
-        lower.includes("εκδηλ") ||
-        lower.includes("γενεθ") ||
-        lower.includes("πάρτι") ||
-        lower.includes("γιορτ")
+        lower.includes("ekdil") ||
+        lower.includes("geneth") ||
+        lower.includes("parti") ||
+        lower.includes("giort")
       ) {
 
         response =
           "We'd be delighted to help with your private event. ✨<br><br>" +
-          "We host <strong>birthdays, corporate dinners and private celebrations</strong>.<br><br>" +
-          "Tell me the type of event, preferred date and number of guests, and I can collect the details for our team.";
 
+          "We host <strong>birthdays, corporate dinners and private celebrations</strong>.<br><br>" +
+
+          "Tell me the type of event, preferred date and number of guests, and I can collect the details for our team.";
       }
 
 
-      /* OPENING HOURS */
+      /* =========================
+         OPENING HOURS
+         ========================= */
 
       else if (
         lower.includes("hour") ||
         lower.includes("open") ||
         lower.includes("opening") ||
-        lower.includes("ωρα") ||
-        lower.includes("ώρα") ||
-        lower.includes("ανοιχ")
+        lower.includes("ora") ||
+        lower.includes("anoich")
       ) {
 
         response =
           "Mermaids is open <strong>Tuesday through Sunday</strong> for dinner, from <strong>18:00 to 23:30</strong>.";
-
       }
 
 
-      /* VEGETARIAN / VEGAN */
+      /* =========================
+         VEGETARIAN / VEGAN
+         ========================= */
 
       else if (
         lower.includes("vegetarian") ||
         lower.includes("vegan") ||
         lower.includes("dietary") ||
         lower.includes("allerg") ||
-        lower.includes("χορτο") ||
-        lower.includes("vegan") ||
-        lower.includes("αλλεργ")
+        lower.includes("xorto")
       ) {
 
         response =
           "We offer vegetarian-friendly choices and can discuss dietary requirements with you when making a reservation. ✨<br><br>" +
-          "If you tell us about your dietary requirement or allergy, our team can advise you on suitable options.";
 
+          "If you tell us about your dietary requirement or allergy, our team can advise you on suitable options.";
       }
 
 
-      /* GREETING */
+      /* =========================
+         GREETING
+         ========================= */
 
       else if (
         lower.includes("hello") ||
         lower.includes("hi") ||
         lower.includes("hey") ||
-        lower.includes("γεια") ||
-        lower.includes("καλημερα") ||
-        lower.includes("καλημέρα") ||
-        lower.includes("καλησπερα") ||
-        lower.includes("καλησπέρα")
+        lower.includes("geia") ||
+        lower.includes("kalimera") ||
+        lower.includes("kalispera")
       ) {
 
         response =
           "Hello and welcome to Mermaids. ✨<br><br>" +
-          "I'm your virtual restaurant assistant. How can I help you today?";
 
+          "I'm your virtual restaurant assistant. How can I help you today?";
       }
 
 
-      /* THANK YOU */
+      /* =========================
+         THANK YOU
+         ========================= */
 
       else if (
         lower.includes("thank") ||
         lower.includes("thanks") ||
-        lower.includes("ευχαριστ")
+        lower.includes("efxarist")
       ) {
 
         response =
           "You're very welcome. ✨ We look forward to welcoming you at Mermaids.";
-
       }
 
 
-      /* CONTACT */
+      /* =========================
+         CONTACT
+         ========================= */
 
       else if (
         lower.includes("contact") ||
         lower.includes("email") ||
         lower.includes("phone") ||
-        lower.includes("τηλεφων") ||
-        lower.includes("επικοινων")
+        lower.includes("tilefon") ||
+        lower.includes("epikoinon")
       ) {
 
         response =
           "Of course. You can contact the Mermaids team through the contact details shown on our website. ✨";
-
       }
 
 
@@ -718,11 +757,16 @@
      RESERVATION FORM
      ========================= */
 
-  document
-    .getElementById("reservationForm")
-    .addEventListener("submit", function(event) {
+  const reservationForm =
+    document.getElementById("reservationForm");
+
+
+  if (reservationForm) {
+
+    reservationForm.addEventListener("submit", function(event) {
 
       event.preventDefault();
+
 
       const name =
         document.getElementById("guestName").value;
@@ -754,6 +798,33 @@
 
     });
 
+  }
+
+
+  /* =========================
+     ENTER KEY
+     ========================= */
+
+  const chatInput =
+    document.getElementById("chatInput");
+
+
+  if (chatInput) {
+
+    chatInput.addEventListener("keydown", function(event) {
+
+      if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        sendMessage();
+
+      }
+
+    });
+
+  }
+
 
   /* =========================
      ESC KEY
@@ -762,7 +833,9 @@
   document.addEventListener("keydown", function(event) {
 
     if (event.key === "Escape") {
+
       closeChat();
+
     }
 
   });
