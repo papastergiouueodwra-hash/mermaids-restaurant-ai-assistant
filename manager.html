@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mermaids — Manager Dashboard</title>
+<style>
+:root{--black:#0b0b0b;--dark:#111;--dark2:#171717;--gold:#c9a96e;--gold2:#e2c995;--cream:#f5f1e8;--muted:#aaa49a;--border:rgba(201,169,110,.25);--green:#8fbf91;--red:#c77d7d}
+*{box-sizing:border-box}body{margin:0;background:var(--black);color:var(--cream);font-family:Georgia,"Times New Roman",serif}button,input,select{font:inherit}button{cursor:pointer}.page{max-width:1250px;margin:auto;padding:35px 22px 70px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--border);padding-bottom:25px;margin-bottom:30px}.brand{font-size:24px;letter-spacing:3px;color:var(--gold2)}.brand small{display:block;font:10px Arial,sans-serif;letter-spacing:3px;color:var(--muted);margin-top:5px}.button{border:1px solid var(--gold);background:transparent;color:var(--gold2);padding:11px 16px;text-transform:uppercase;letter-spacing:1px;font:11px Arial,sans-serif}.button:hover{background:var(--gold);color:#111}.login{max-width:430px;margin:12vh auto;background:var(--dark2);border:1px solid var(--border);padding:35px}.login h1{font-weight:normal;margin:0 0 8px}.login p{color:var(--muted);margin:0 0 25px}.field{margin:14px 0}.field label{display:block;font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:7px}.field input,.field select{width:100%;padding:13px;background:#0c0c0c;border:1px solid #333;color:var(--cream);outline:none}.field input:focus,.field select:focus{border-color:var(--gold)}.error{color:var(--red);font:13px Arial,sans-serif;margin:15px 0;min-height:18px}.hidden{display:none!important}.welcome{color:var(--muted);font:12px Arial,sans-serif}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:25px}.stat{background:var(--dark2);border:1px solid var(--border);padding:20px}.stat span{display:block;color:var(--muted);font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:1.5px}.stat strong{display:block;font-size:31px;font-weight:normal;color:var(--gold2);margin-top:8px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.toolbar input,.toolbar select{background:#111;border:1px solid #333;color:var(--cream);padding:11px 12px}.toolbar input{flex:1;min-width:210px}.table-wrap{overflow:auto;border:1px solid var(--border);background:var(--dark)}table{width:100%;border-collapse:collapse;min-width:1000px}th,td{text-align:left;padding:15px 13px;border-bottom:1px solid #282828;vertical-align:top}th{font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);background:#151515}td{font:13px Arial,sans-serif}.muted{color:#777;font-size:11px;margin-top:4px}.badge{display:inline-block;padding:5px 8px;border:1px solid #555;font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:1px}.new{border-color:var(--gold);color:var(--gold2)}.confirmed{border-color:var(--green);color:var(--green)}.cancelled{border-color:var(--red);color:var(--red)}.contacted{color:#aaa}.actions{display:flex;gap:6px;flex-wrap:wrap}.actions button{padding:7px 9px;font-size:9px}.empty{text-align:center;color:var(--muted);padding:50px}.notice{font:12px Arial,sans-serif;color:var(--muted);margin-top:14px}@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div id="loginView" class="login">
+  <h1>Mermaids</h1>
+  <p>Manager Dashboard</p>
+  <form id="loginForm">
+    <div class="field"><label>Email</label><input id="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+    <div id="loginError" class="error"></div>
+    <button class="button" type="submit">Sign in</button>
+  </form>
+</div>
+<div id="app" class="page hidden">
+  <div class="top"><div><div class="brand">MERMAIDS</div><div class="brand"><small>RESTAURANT & WINE · MANAGER</small></div></div><div><span id="welcome" class="welcome"></span> <button id="logout" class="button">Sign out</button></div></div>
+  <div class="stats"><div class="stat"><span>Total leads</span><strong id="total">0</strong></div><div class="stat"><span>Reservations</span><strong id="reservations">0</strong></div><div class="stat"><span>Events</span><strong id="events">0</strong></div><div class="stat"><span>New</span><strong id="newLeads">0</strong></div></div>
+  <div class="toolbar"><input id="search" placeholder="Search name, email or phone…"><select id="statusFilter"><option value="">All statuses</option><option>New</option><option>Contacted</option><option>Confirmed</option><option>Cancelled</option></select><button id="refresh" class="button">Refresh</button><button id="export" class="button">Export CSV</button></div>
+  <div class="table-wrap"><table><thead><tr><th>Type</th><th>Guest</th><th>Contact</th><th>Date / Time</th><th>Guests</th><th>Message</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <div class="notice">Private manager area. Leads are loaded directly from Supabase after authentication.</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL="https://kkucvaolsagjzhfkfypt.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_S0JvuNbu1s4eemK3SMfcPw_7DbP2SFz";
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+let leads=[];
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??"").replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+async function init(){const {data:{session}}=await supabaseClient.auth.getSession();if(session)showApp(session);else showLogin()}
+function showLogin(){$("loginView").classList.remove("hidden");$("app").classList.add("hidden")}
+function showApp(session){$("loginView").classList.add("hidden");$("app").classList.remove("hidden");$("welcome").textContent=session.user.email;loadLeads()}
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();$("loginError").textContent="";const {data,error}=await supabaseClient.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){$("loginError").textContent=error.message;return}showApp(data.session)});
+$("logout").onclick=async()=>{await supabaseClient.auth.signOut();showLogin()};
+async function loadLeads(){
+ const {data,error}=await supabaseClient.from("leads").select("*").order("created_at",{ascending:false});
+ if(error){$("rows").innerHTML=`<tr><td colspan="9" class="empty">${esc(error.message)}</td></tr>`;return}
+ leads=data||[];render();
+}
+function render(){
+ const q=$("search").value.trim().toLowerCase(), status=$("statusFilter").value;
+ const filtered=leads.filter(l=>{const hay=[l.name,l.email,l.phone,l.type,l.message].join(" ").toLowerCase();return(!q||hay.includes(q))&&(!status||l.status===status)});
+ $("total").textContent=leads.length;$("reservations").textContent=leads.filter(l=>l.type==="Reservation").length;$("events").textContent=leads.filter(l=>l.type==="Private Event").length;$("newLeads").textContent=leads.filter(l=>(l.status||"New")==="New").length;
+ if(!filtered.length){$("rows").innerHTML=`<tr><td colspan="9" class="empty">No leads found.</td></tr>`;return}
+ $("rows").innerHTML=filtered.map(l=>{const s=l.status||"New";return `<tr><td>${esc(l.type||"—")}</td><td><strong>${esc(l.name||"—")}</strong><div class="muted">${esc(l.id)}</div></td><td>${esc(l.email||"—")}<br><span class="muted">${esc(l.phone||"")}</span></td><td>${esc(l.date||"—")}<br>${esc(l.time||"")}</td><td>${esc(l.guests||"—")}</td><td>${esc(l.message||"—")}</td><td><span class="badge ${s.toLowerCase()}">${esc(s)}</span></td><td>${l.created_at?new Date(l.created_at).toLocaleString("en-GB"):"—"}</td><td><div class="actions"><button class="button" onclick="setStatus(${JSON.stringify(l.id)},'Contacted')">Contacted</button><button class="button" onclick="setStatus(${JSON.stringify(l.id)},'Confirmed')">Confirm</button><button class="button" onclick="setStatus(${JSON.stringify(l.id)},'Cancelled')">Cancel</button></div></td></tr>`}).join("");
+}
+async function setStatus(id,status){const {error}=await supabaseClient.from("leads").update({status}).eq("id",id);if(error){alert(error.message);return}await loadLeads()}
+$("search").oninput=render;$("statusFilter").onchange=render;$("refresh").onclick=loadLeads;
+$("export").onclick=()=>{const q=$("search").value.trim().toLowerCase(),status=$("statusFilter").value;const rows=leads.filter(l=>(!q||[l.name,l.email,l.phone,l.type,l.message].join(" ").toLowerCase().includes(q))&&(!status||l.status===status));const cols=["id","created_at","type","name","phone","email","guests","date","time","message","status","source"];const csv=[cols.join(","),...rows.map(r=>cols.map(c=>`"${String(r[c]??"").replace(/"/g,'""')}"`).join(","))].join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="mermaids-leads.csv";a.click()};
+supabaseClient.auth.onAuthStateChange((_event,session)=>{if(session)showApp(session);else showLogin()});init();
+</script>
+</body>
+</html>
