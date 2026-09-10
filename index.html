@@ -38,6 +38,9 @@
       --cream: #f5f1e8;
       --muted: #aaa49a;
       --border: rgba(201, 169, 110, 0.25);
+      --success: #8fbf91;
+      --danger: #c77d7d;
+      --blue: #8ea9c7;
     }
 
     a {
@@ -52,9 +55,13 @@
       font-family: inherit;
     }
 
-    /* =========================
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================================================
        HEADER
-       ========================= */
+       ========================================================= */
 
     header {
       position: fixed;
@@ -92,14 +99,14 @@
 
     nav {
       display: flex;
-      gap: 28px;
+      gap: 25px;
       align-items: center;
     }
 
     nav a {
       font-family: Arial, sans-serif;
-      font-size: 12px;
-      letter-spacing: 1.5px;
+      font-size: 11px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       color: #ddd;
       transition: 0.3s;
@@ -111,13 +118,13 @@
 
     .nav-ai {
       border: 1px solid var(--gold);
-      padding: 10px 16px;
+      padding: 10px 15px;
       color: var(--gold-light);
     }
 
-    /* =========================
+    /* =========================================================
        HERO
-       ========================= */
+       ========================================================= */
 
     .hero {
       min-height: 100vh;
@@ -224,9 +231,14 @@
       background: var(--gold-light);
     }
 
-    /* =========================
-       GENERAL SECTIONS
-       ========================= */
+    .button.small {
+      padding: 10px 15px;
+      font-size: 10px;
+    }
+
+    /* =========================================================
+       GENERAL
+       ========================================================= */
 
     section {
       padding: 100px 25px;
@@ -263,9 +275,9 @@
       color: var(--muted);
     }
 
-    /* =========================
+    /* =========================================================
        ABOUT
-       ========================= */
+       ========================================================= */
 
     #about {
       background: #101010;
@@ -303,9 +315,9 @@
       font-style: italic;
     }
 
-    /* =========================
+    /* =========================================================
        MENU
-       ========================= */
+       ========================================================= */
 
     #menu {
       background: #0b0b0b;
@@ -358,9 +370,9 @@
       font-size: 12px;
     }
 
-    /* =========================
+    /* =========================================================
        WINE
-       ========================= */
+       ========================================================= */
 
     #wine {
       background:
@@ -395,9 +407,9 @@
       margin-bottom: 30px;
     }
 
-    /* =========================
+    /* =========================================================
        RESERVATIONS
-       ========================= */
+       ========================================================= */
 
     #reservations {
       background: #e9e2d6;
@@ -459,13 +471,19 @@
       resize: vertical;
     }
 
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
+    }
+
     .reservation-box .button {
       margin-top: 20px;
     }
 
-    /* =========================
-       PRIVATE EVENTS
-       ========================= */
+    /* =========================================================
+       EVENTS
+       ========================================================= */
 
     #events {
       background: #101010;
@@ -481,6 +499,12 @@
       padding: 35px;
       background: #151515;
       border: 1px solid var(--border);
+      transition: 0.3s;
+    }
+
+    .event-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
     }
 
     .event-card h3 {
@@ -494,9 +518,13 @@
       color: #aaa49a;
     }
 
-    /* =========================
+    .event-card .button {
+      margin-top: 20px;
+    }
+
+    /* =========================================================
        AI SECTION
-       ========================= */
+       ========================================================= */
 
     #ai {
       background:
@@ -510,7 +538,7 @@
     }
 
     .ai-box {
-      max-width: 850px;
+      max-width: 900px;
       margin: auto;
       border: 1px solid var(--gold);
       padding: 60px 40px;
@@ -553,9 +581,9 @@
       letter-spacing: 0.5px;
     }
 
-    /* =========================
+    /* =========================================================
        CONTACT
-       ========================= */
+       ========================================================= */
 
     #contact {
       background: #0e0e0e;
@@ -589,9 +617,9 @@
       color: var(--gold-light);
     }
 
-    /* =========================
+    /* =========================================================
        FOOTER
-       ========================= */
+       ========================================================= */
 
     footer {
       background: #050505;
@@ -613,9 +641,9 @@
       margin-top: 10px;
     }
 
-    /* =========================
-       FLOATING AI BUTTON
-       ========================= */
+    /* =========================================================
+       FLOATING AI
+       ========================================================= */
 
     .ai-floating-button {
       position: fixed;
@@ -639,17 +667,17 @@
       color: #111;
     }
 
-    /* =========================
+    /* =========================================================
        CHAT WINDOW
-       ========================= */
+       ========================================================= */
 
     .chat-window {
       position: fixed;
       right: 25px;
       bottom: 85px;
-      width: 380px;
+      width: 390px;
       max-width: calc(100% - 30px);
-      height: 540px;
+      height: 590px;
       background: #111;
       border: 1px solid var(--gold);
       z-index: 1499;
@@ -660,6 +688,18 @@
 
     .chat-window.open {
       display: flex;
+      animation: chatIn 0.25s ease;
+    }
+
+    @keyframes chatIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .chat-header {
@@ -681,6 +721,13 @@
       font-family: Arial, sans-serif;
       font-size: 9px;
       margin-top: 3px;
+    }
+
+    .chat-status {
+      font-family: Arial, sans-serif;
+      font-size: 9px;
+      color: var(--success);
+      margin-top: 5px;
     }
 
     .chat-close {
@@ -717,6 +764,12 @@
       margin-left: auto;
       background: var(--gold);
       color: #111;
+    }
+
+    .message.system {
+      background: rgba(143,191,145,0.08);
+      border: 1px solid rgba(143,191,145,0.25);
+      color: #b9d8bb;
     }
 
     .quick-buttons {
@@ -768,11 +821,324 @@
       font-size: 18px;
     }
 
-    /* =========================
-       RESPONSIVE
-       ========================= */
+    /* =========================================================
+       LEAD CAPTURE PANEL
+       ========================================================= */
 
-    @media (max-width: 800px) {
+    .lead-panel {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(8px);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lead-panel.open {
+      display: flex;
+    }
+
+    .lead-modal {
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #111;
+      border: 1px solid var(--gold);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.7);
+      padding: 35px;
+    }
+
+    .lead-modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+
+    .lead-modal-header h2 {
+      font-size: 30px;
+      font-weight: normal;
+      color: var(--gold-light);
+    }
+
+    .lead-modal-header p {
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 25px;
+    }
+
+    .lead-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px;
+    }
+
+    .lead-form .full {
+      grid-column: 1 / -1;
+    }
+
+    .lead-form input,
+    .lead-form select,
+    .lead-form textarea {
+      background: #181818;
+      border: 1px solid #333;
+      color: #eee;
+    }
+
+    .lead-form label {
+      color: #aaa;
+    }
+
+    .lead-form .button {
+      margin-top: 5px;
+    }
+
+    /* =========================================================
+       TOAST
+       ========================================================= */
+
+    .toast {
+      position: fixed;
+      right: 25px;
+      top: 95px;
+      z-index: 5000;
+      min-width: 280px;
+      max-width: 380px;
+      background: #151515;
+      border: 1px solid var(--gold);
+      padding: 16px 18px;
+      display: none;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    .toast.show {
+      display: block;
+      animation: toastIn 0.3s ease;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .toast strong {
+      color: var(--gold-light);
+    }
+
+    /* =========================================================
+       DASHBOARD
+       ========================================================= */
+
+    .dashboard-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 4000;
+      background: #090909;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .dashboard-panel.open {
+      display: block;
+    }
+
+    .dashboard-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(9,9,9,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #292929;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .dashboard-brand {
+      color: var(--gold-light);
+      letter-spacing: 3px;
+      font-size: 17px;
+    }
+
+    .dashboard-brand span {
+      display: block;
+      color: #777;
+      font-family: Arial, sans-serif;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      margin-top: 3px;
+    }
+
+    .dashboard-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .dashboard-container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 40px 25px 80px;
+    }
+
+    .dashboard-title {
+      margin-bottom: 30px;
+    }
+
+    .dashboard-title h1 {
+      font-size: 42px;
+      font-weight: normal;
+      color: var(--cream);
+    }
+
+    .dashboard-title p {
+      color: #888;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 35px;
+    }
+
+    .stat-card {
+      background: #131313;
+      border: 1px solid #292929;
+      padding: 22px;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #777;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 9px;
+      margin-bottom: 10px;
+    }
+
+    .stat-card strong {
+      font-size: 30px;
+      color: var(--gold-light);
+      font-weight: normal;
+    }
+
+    .dashboard-table-wrap {
+      border: 1px solid #292929;
+      background: #111;
+      overflow-x: auto;
+    }
+
+    .dashboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    .dashboard-table th {
+      text-align: left;
+      color: #777;
+      font-family: Arial, sans-serif;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 15px;
+      border-bottom: 1px solid #292929;
+      background: #151515;
+    }
+
+    .dashboard-table td {
+      padding: 15px;
+      border-bottom: 1px solid #222;
+      color: #ccc;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      vertical-align: top;
+    }
+
+    .dashboard-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .lead-type {
+      color: var(--gold-light);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 5px 8px;
+      border: 1px solid #444;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .status-new {
+      color: var(--gold-light);
+      border-color: rgba(201,169,110,0.4);
+    }
+
+    .status-contacted {
+      color: var(--blue);
+      border-color: rgba(142,169,199,0.4);
+    }
+
+    .status-qualified {
+      color: var(--success);
+      border-color: rgba(143,191,145,0.4);
+    }
+
+    .status-completed {
+      color: #aaa;
+      border-color: #444;
+    }
+
+    .workflow-list {
+      margin-top: 8px;
+      color: #777;
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .dashboard-empty {
+      text-align: center;
+      padding: 70px 20px;
+      color: #777;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 900px) {
 
       nav {
         display: none;
@@ -792,6 +1158,13 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+
       .form-grid {
         grid-template-columns: 1fr;
       }
@@ -806,6 +1179,19 @@
 
       .hero::before {
         inset: 15px;
+      }
+
+      .lead-form {
+        grid-template-columns: 1fr;
+      }
+
+      .lead-form .full {
+        grid-column: auto;
+      }
+
+      .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
 
@@ -844,15 +1230,29 @@
         right: 15px;
         bottom: 15px;
       }
+
+      .lead-modal {
+        padding: 25px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toast {
+        right: 15px;
+        left: 15px;
+        min-width: auto;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- =========================
+  <!-- =========================================================
        HEADER
-       ========================= -->
+       ========================================================= -->
 
   <header>
     <div class="nav">
@@ -875,9 +1275,9 @@
   </header>
 
 
-  <!-- =========================
+  <!-- =========================================================
        HERO
-       ========================= -->
+       ========================================================= -->
 
   <section class="hero" id="home">
 
@@ -919,9 +1319,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        ABOUT
-       ========================= -->
+       ========================================================= -->
 
   <section id="about">
 
@@ -975,9 +1375,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        MENU
-       ========================= -->
+       ========================================================= -->
 
   <section id="menu">
 
@@ -1069,9 +1469,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        WINE
-       ========================= -->
+       ========================================================= -->
 
   <section id="wine">
 
@@ -1105,9 +1505,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        RESERVATIONS
-       ========================= -->
+       ========================================================= -->
 
   <section id="reservations">
 
@@ -1152,13 +1552,13 @@
               <select id="guests" required>
 
                 <option value="">Select</option>
-                <option>1 guest</option>
-                <option>2 guests</option>
-                <option>3 guests</option>
-                <option>4 guests</option>
-                <option>5 guests</option>
-                <option>6 guests</option>
-                <option>7+ guests</option>
+                <option value="1">1 guest</option>
+                <option value="2">2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+                <option value="5">5 guests</option>
+                <option value="6">6 guests</option>
+                <option value="7+">7+ guests</option>
 
               </select>
 
@@ -1256,9 +1656,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        PRIVATE EVENTS
-       ========================= -->
+       ========================================================= -->
 
   <section id="events">
 
@@ -1288,6 +1688,13 @@
             wine pairing and dedicated service.
           </p>
 
+          <button
+            class="button small"
+            onclick="openEventLead('Birthday')"
+          >
+            Plan This Event
+          </button>
+
         </div>
 
 
@@ -1299,6 +1706,13 @@
             Impress clients and bring your team together
             in an elegant Mediterranean setting.
           </p>
+
+          <button
+            class="button small"
+            onclick="openEventLead('Corporate Dinner')"
+          >
+            Plan This Event
+          </button>
 
         </div>
 
@@ -1312,6 +1726,13 @@
             help design the perfect evening.
           </p>
 
+          <button
+            class="button small"
+            onclick="openEventLead('Private Celebration')"
+          >
+            Plan This Event
+          </button>
+
         </div>
 
       </div>
@@ -1321,9 +1742,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        AI BUSINESS DEMO
-       ========================= -->
+       ========================================================= -->
 
   <section id="ai">
 
@@ -1354,7 +1775,6 @@
           Start a conversation
         </button>
 
-
         <div class="ai-features">
 
           <div class="ai-feature">
@@ -1378,15 +1798,15 @@
           </div>
 
           <div class="ai-feature">
-            Email Assistance
+            Human Handoff
           </div>
 
           <div class="ai-feature">
-            Automated Workflows
+            AI Email Assistance
           </div>
 
           <div class="ai-feature">
-            Smart Support
+            Automated Workflow
           </div>
 
         </div>
@@ -1398,9 +1818,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        CONTACT
-       ========================= -->
+       ========================================================= -->
 
   <section id="contact">
 
@@ -1465,6 +1885,13 @@
             Private events & group bookings available.
           </p>
 
+          <button
+            class="button small"
+            onclick="openHandoff()"
+          >
+            Talk to our team
+          </button>
+
         </div>
 
       </div>
@@ -1474,9 +1901,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =========================================================
        FOOTER
-       ========================= -->
+       ========================================================= -->
 
   <footer>
 
@@ -1496,12 +1923,16 @@
       AI Assistant concept powered by ELåiVA — T&S COMPANY
     </p>
 
+    <p style="margin-top:18px;color:#4f4f4f;">
+      Demo environment · AI business automation concept
+    </p>
+
   </footer>
 
 
-  <!-- =========================
+  <!-- =========================================================
        FLOATING AI BUTTON
-       ========================= -->
+       ========================================================= -->
 
   <button
     class="ai-floating-button"
@@ -1511,9 +1942,9 @@
   </button>
 
 
-  <!-- =========================
+  <!-- =========================================================
        CHAT WINDOW
-       ========================= -->
+       ========================================================= -->
 
   <div
     class="chat-window"
@@ -1531,6 +1962,10 @@
         <small>
           Your restaurant assistant
         </small>
+
+        <div class="chat-status">
+          ● Online · ELåiVA AI Demo
+        </div>
 
       </div>
 
@@ -1557,6 +1992,11 @@
         I'm your virtual restaurant assistant.
         I can help you with reservations, our menu,
         wine, opening hours, location and private events.
+
+        <br><br>
+
+        I can also collect your details and prepare
+        an enquiry for the Mermaids team.
 
       </div>
 
@@ -1589,6 +2029,10 @@
         Location
       </button>
 
+      <button onclick="quickQuestion('human')">
+        Talk to Team
+      </button>
+
     </div>
 
 
@@ -1615,15 +2059,328 @@
 
 
   <!-- =========================================================
-       MERMAIDS AI ASSISTANT
-       ELåiVA — AI BUSINESS DEMO
+       LEAD QUALIFICATION MODAL
+       ========================================================= -->
+
+  <div
+    class="lead-panel"
+    id="leadPanel"
+  >
+
+    <div class="lead-modal">
+
+      <div class="lead-modal-header">
+
+        <div>
+
+          <h2 id="leadModalTitle">
+            Private Event Enquiry
+          </h2>
+
+          <p>
+            Tell us a little about your event and our team
+            can follow up with you.
+          </p>
+
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeLeadPanel()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form
+        class="lead-form"
+        id="leadForm"
+      >
+
+        <div class="form-group">
+
+          <label>Your Name</label>
+
+          <input
+            id="leadName"
+            type="text"
+            placeholder="Full name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Event Type</label>
+
+          <select
+            id="leadEventType"
+            required
+          >
+
+            <option value="">Select</option>
+            <option>Birthday</option>
+            <option>Corporate Dinner</option>
+            <option>Private Celebration</option>
+            <option>Wedding / Engagement</option>
+            <option>Other</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Preferred Date</label>
+
+          <input
+            id="leadDate"
+            type="date"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Guests</label>
+
+          <select
+            id="leadGuests"
+            required
+          >
+
+            <option value="">Select</option>
+            <option>2–5</option>
+            <option>6–10</option>
+            <option>11–20</option>
+            <option>21–40</option>
+            <option>40+</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Budget / Preference</label>
+
+          <select
+            id="leadBudget"
+          >
+
+            <option value="">Prefer not to say</option>
+            <option>€30–50 per person</option>
+            <option>€50–80 per person</option>
+            <option>€80–120 per person</option>
+            <option>€120+ per person</option>
+            <option>Custom proposal</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Email</label>
+
+          <input
+            id="leadEmail"
+            type="email"
+            placeholder="your@email.com"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Phone</label>
+
+          <input
+            id="leadPhone"
+            type="tel"
+            placeholder="+30"
+          >
+
+        </div>
+
+
+        <div class="form-group full">
+
+          <label>What are you planning?</label>
+
+          <textarea
+            id="leadNotes"
+            placeholder="Tell us about your event, menu preferences, wine pairing, decoration, special requests..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group full">
+
+          <button
+            type="submit"
+            class="button gold"
+          >
+            Submit Event Enquiry
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       TOAST
+       ========================================================= -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <!-- =========================================================
+       DASHBOARD
+       ========================================================= -->
+
+  <div
+    class="dashboard-panel"
+    id="dashboardPanel"
+  >
+
+    <div class="dashboard-header">
+
+      <div class="dashboard-brand">
+        MERMAIDS
+        <span>ELåiVA LEAD DASHBOARD · DEMO</span>
+      </div>
+
+      <div class="dashboard-actions">
+
+        <button
+          class="button small"
+          onclick="exportLeads()"
+        >
+          Export Leads
+        </button>
+
+        <button
+          class="button small"
+          onclick="clearLeads()"
+        >
+          Clear Demo Data
+        </button>
+
+        <button
+          class="button small gold"
+          onclick="closeDashboard()"
+        >
+          Close Dashboard
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="dashboard-container">
+
+      <div class="dashboard-title">
+
+        <h1>Lead Dashboard</h1>
+
+        <p>
+          Centralised view of reservations, private events and human handoffs.
+        </p>
+
+      </div>
+
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+
+          <span>Total Leads</span>
+
+          <strong id="statTotal">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>Reservations</span>
+
+          <strong id="statReservations">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>Private Events</span>
+
+          <strong id="statEvents">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>Human Handoffs</span>
+
+          <strong id="statHandoffs">
+            0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="dashboard-table-wrap"
+        id="dashboardTableWrap"
+      >
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
        ========================================================= -->
 
   <script>
 
-    /* =========================
+    /* =========================================================
        RESTAURANT DATA
-       ========================= */
+       ========================================================= */
 
     const MERMAIDS = {
 
@@ -1676,24 +2433,41 @@
     };
 
 
-    /* =========================
-       RESERVATION STATE
-       ========================= */
+    /* =========================================================
+       STATE
+       ========================================================= */
 
     let reservation = {
       guests: null,
       date: null,
       time: null,
       name: null,
-      phone: null
+      phone: null,
+      email: null,
+      request: null
     };
 
     let waitingFor = null;
 
+    let eventLead = {
+      type: null,
+      name: null,
+      date: null,
+      guests: null,
+      budget: null,
+      email: null,
+      phone: null,
+      notes: null
+    };
 
-    /* =========================
-       DOM ELEMENTS
-       ========================= */
+    let handoffMode = false;
+
+    let currentLeadType = null;
+
+
+    /* =========================================================
+       DOM
+       ========================================================= */
 
     const chatWindow =
       document.getElementById("chatWindow");
@@ -1707,16 +2481,130 @@
     const reservationForm =
       document.getElementById("reservationForm");
 
+    const leadPanel =
+      document.getElementById("leadPanel");
 
-    /* =========================
-       OPEN CHAT
-       ========================= */
+    const leadForm =
+      document.getElementById("leadForm");
+
+    const dashboardPanel =
+      document.getElementById("dashboardPanel");
+
+    const toast =
+      document.getElementById("toast");
+
+
+    /* =========================================================
+       LOCAL STORAGE
+       ========================================================= */
+
+    function getLeads() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem("mermaids_leads") || "[]"
+        );
+
+      } catch (error) {
+
+        return [];
+
+      }
+
+    }
+
+
+    function saveLeads(leads) {
+
+      localStorage.setItem(
+        "mermaids_leads",
+        JSON.stringify(leads)
+      );
+
+    }
+
+
+    /* =========================================================
+       CREATE LEAD
+       ========================================================= */
+
+    function createLead(data) {
+
+      const leads =
+        getLeads();
+
+      const lead = {
+
+        id:
+          "MER-" +
+          Date.now().toString(36).toUpperCase(),
+
+        createdAt:
+          new Date().toISOString(),
+
+        status:
+          "New",
+
+        ...data,
+
+        workflow: [
+
+          "Lead captured",
+
+          "Data validated",
+
+          "CRM record created",
+
+          "Team notification prepared",
+
+          "Follow-up task created"
+
+        ]
+
+      };
+
+      leads.unshift(lead);
+
+      saveLeads(leads);
+
+      return lead;
+
+    }
+
+
+    /* =========================================================
+       TOAST
+       ========================================================= */
+
+    function showToast(title, message) {
+
+      toast.innerHTML =
+        "<strong>" +
+        title +
+        "</strong><br>" +
+        message;
+
+      toast.classList.add("show");
+
+      setTimeout(function() {
+
+        toast.classList.remove("show");
+
+      }, 4500);
+
+    }
+
+
+    /* =========================================================
+       CHAT
+       ========================================================= */
 
     function openChat() {
 
       chatWindow.classList.add("open");
 
-      setTimeout(function () {
+      setTimeout(function() {
 
         chatInput.focus();
 
@@ -1725,20 +2613,12 @@
     }
 
 
-    /* =========================
-       CLOSE CHAT
-       ========================= */
-
     function closeChat() {
 
       chatWindow.classList.remove("open");
 
     }
 
-
-    /* =========================
-       ADD CHAT MESSAGE
-       ========================= */
 
     function addMessage(text, type) {
 
@@ -1748,7 +2628,8 @@
       message.className =
         "message " + type;
 
-      message.innerHTML = text;
+      message.innerHTML =
+        text;
 
       chatMessages.appendChild(message);
 
@@ -1758,9 +2639,9 @@
     }
 
 
-    /* =========================
-       NORMALIZE GREEK / ENGLISH
-       ========================= */
+    /* =========================================================
+       NORMALIZE
+       ========================================================= */
 
     function normalize(text) {
 
@@ -1774,9 +2655,9 @@
     }
 
 
-    /* =========================
-       FORMAT DATE
-       ========================= */
+    /* =========================================================
+       DATE
+       ========================================================= */
 
     function formatDate(date) {
 
@@ -1796,10 +2677,6 @@
 
     }
 
-
-    /* =========================
-       PARSE DAY OF WEEK
-       ========================= */
 
     function detectWeekday(text) {
 
@@ -1858,10 +2735,6 @@
     }
 
 
-    /* =========================
-       PARSE TODAY / TOMORROW
-       ========================= */
-
     function detectRelativeDate(text) {
 
       const today =
@@ -1896,10 +2769,6 @@
 
     }
 
-
-    /* =========================
-       PARSE NUMERIC DATE
-       ========================= */
 
     function detectNumericDate(originalText) {
 
@@ -1946,10 +2815,6 @@
     }
 
 
-    /* =========================
-       DETECT DATE
-       ========================= */
-
     function detectDate(originalText) {
 
       const text =
@@ -1974,9 +2839,9 @@
     }
 
 
-    /* =========================
-       DETECT TIME
-       ========================= */
+    /* =========================================================
+       TIME
+       ========================================================= */
 
     function detectTime(text) {
 
@@ -2031,9 +2896,9 @@
     }
 
 
-    /* =========================
-       DETECT GUEST COUNT
-       ========================= */
+    /* =========================================================
+       GUESTS
+       ========================================================= */
 
     function detectGuests(text) {
 
@@ -2079,9 +2944,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        RESERVATION INTENT
-       ========================= */
+       ========================================================= */
 
     function isReservation(text) {
 
@@ -2102,7 +2967,6 @@
         "κρατησω",
         "κρατηση τραπεζιου",
         "κλεισω τραπεζι",
-        "κλεισω τραπεζι",
         "τραπεζι",
         "δειπνο"
 
@@ -2116,9 +2980,9 @@
     }
 
 
-    /* =========================
-       RESERVATION RESPONSE
-       ========================= */
+    /* =========================================================
+       RESERVATION FLOW
+       ========================================================= */
 
     function handleReservation(text) {
 
@@ -2145,8 +3009,6 @@
       }
 
 
-      /* ALL THREE DETAILS */
-
       if (
         reservation.guests &&
         reservation.date &&
@@ -2172,8 +3034,6 @@
       }
 
 
-      /* GUESTS */
-
       if (!reservation.guests) {
 
         waitingFor =
@@ -2188,8 +3048,6 @@
       }
 
 
-      /* DATE */
-
       if (!reservation.date) {
 
         waitingFor =
@@ -2203,8 +3061,6 @@
 
       }
 
-
-      /* TIME */
 
       if (!reservation.time) {
 
@@ -2223,10 +3079,6 @@
 
     }
 
-
-    /* =========================
-       HANDLE WAITING ANSWERS
-       ========================= */
 
     function handleWaitingAnswer(text) {
 
@@ -2310,13 +3162,39 @@
           text.trim();
 
         waitingFor =
+          "email";
+
+        return `
+          Thank you, <strong>${escapeHTML(reservation.name)}</strong>. ✨<br><br>
+
+          What email address should we use
+          for your reservation?
+        `;
+
+      }
+
+
+      if (waitingFor === "email") {
+
+        if (
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text.trim())
+        ) {
+
+          return `
+            Please enter a valid email address.
+          `;
+
+        }
+
+        reservation.email =
+          text.trim();
+
+        waitingFor =
           "phone";
 
         return `
-          Thank you, <strong>${reservation.name}</strong>. ✨<br><br>
-
-          What phone number should our team use
-          to contact you?
+          Perfect. What phone number should our
+          team use to contact you?
         `;
 
       }
@@ -2327,33 +3205,90 @@
         reservation.phone =
           text.trim();
 
-        waitingFor = null;
+        waitingFor =
+          "request";
 
-        const summary = `
-          <strong>Reservation request ready ✨</strong><br><br>
+        return `
+          Almost there. ✨<br><br>
 
-          <strong>Guests:</strong>
-          ${reservation.guests}<br>
+          Do you have any special request?
+          For example, a birthday, anniversary
+          or dietary requirement.<br><br>
 
-          <strong>Date:</strong>
-          ${formatDate(reservation.date)}<br>
-
-          <strong>Time:</strong>
-          ${reservation.time}<br>
-
-          <strong>Name:</strong>
-          ${reservation.name}<br>
-
-          <strong>Phone:</strong>
-          ${reservation.phone}<br><br>
-
-          This is a demonstration assistant, so no
-          real reservation has been made. Please submit
-          the reservation form on the website or contact
-          our team to confirm availability.
+          You can type <strong>none</strong>
+          if you don't have one.
         `;
 
-        return summary;
+      }
+
+
+      if (waitingFor === "request") {
+
+        reservation.request =
+          text.trim();
+
+        waitingFor = null;
+
+        const lead =
+          createLead({
+
+            type:
+              "Reservation",
+
+            name:
+              reservation.name,
+
+            email:
+              reservation.email,
+
+            phone:
+              reservation.phone,
+
+            date:
+              formatDate(reservation.date),
+
+            time:
+              reservation.time,
+
+            guests:
+              reservation.guests,
+
+            notes:
+              reservation.request
+
+          });
+
+
+        const emailDraft =
+          buildReservationEmail(lead);
+
+
+        return `
+          <strong>Reservation lead captured ✨</strong><br><br>
+
+          <strong>Lead ID:</strong> ${lead.id}<br>
+          <strong>Guests:</strong> ${lead.guests}<br>
+          <strong>Date:</strong> ${lead.date}<br>
+          <strong>Time:</strong> ${lead.time}<br>
+          <strong>Name:</strong> ${escapeHTML(lead.name)}<br><br>
+
+          Your request has been prepared for the
+          Mermaids team.<br><br>
+
+          <button
+            class="button small"
+            onclick="showEmailDraft('${lead.id}')"
+          >
+            ✉ View AI Email
+          </button>
+
+          <button
+            class="button small"
+            onclick="openHandoff()"
+          >
+            Talk to Team
+          </button>
+        `;
 
       }
 
@@ -2362,9 +3297,390 @@
     }
 
 
-    /* =========================
+    /* =========================================================
+       EVENT LEAD
+       ========================================================= */
+
+    function openEventLead(type) {
+
+      currentLeadType =
+        type;
+
+      document.getElementById(
+        "leadEventType"
+      ).value =
+        type;
+
+      document.getElementById(
+        "leadModalTitle"
+      ).textContent =
+        "Private Event Enquiry";
+
+      leadPanel.classList.add("open");
+
+      setTimeout(function() {
+
+        document.getElementById(
+          "leadName"
+        ).focus();
+
+      }, 100);
+
+    }
+
+
+    function closeLeadPanel() {
+
+      leadPanel.classList.remove("open");
+
+    }
+
+
+    leadForm.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+
+        const lead =
+          createLead({
+
+            type:
+              "Private Event",
+
+            eventType:
+              document.getElementById(
+                "leadEventType"
+              ).value,
+
+            name:
+              document.getElementById(
+                "leadName"
+              ).value,
+
+            date:
+              document.getElementById(
+                "leadDate"
+              ).value,
+
+            guests:
+              document.getElementById(
+                "leadGuests"
+              ).value,
+
+            budget:
+              document.getElementById(
+                "leadBudget"
+              ).value,
+
+            email:
+              document.getElementById(
+                "leadEmail"
+              ).value,
+
+            phone:
+              document.getElementById(
+                "leadPhone"
+              ).value,
+
+            notes:
+              document.getElementById(
+                "leadNotes"
+              ).value
+
+          });
+
+
+        closeLeadPanel();
+
+        leadForm.reset();
+
+
+        showToast(
+          "Event enquiry captured",
+          "Lead " +
+          lead.id +
+          " has been added to the ELåiVA lead dashboard."
+        );
+
+
+        openChat();
+
+        addMessage(
+          `
+            <strong>Thank you, ${escapeHTML(lead.name)}. ✨</strong><br><br>
+
+            Your private event enquiry has been captured.<br><br>
+
+            <strong>Lead ID:</strong> ${lead.id}<br>
+            <strong>Event:</strong> ${escapeHTML(lead.eventType)}<br>
+            <strong>Guests:</strong> ${escapeHTML(lead.guests)}<br>
+            <strong>Date:</strong> ${escapeHTML(lead.date)}<br><br>
+
+            I've prepared the information for the
+            Mermaids team and can also generate
+            an AI-assisted email enquiry.
+            <br><br>
+
+            <button
+              class="button small"
+              onclick="showEmailDraft('${lead.id}')"
+            >
+              ✉ Create Email
+            </button>
+
+            <button
+              class="button small"
+              onclick="openHandoff()"
+            >
+              Talk to Team
+            </button>
+          `,
+          "bot"
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       HUMAN HANDOFF
+       ========================================================= */
+
+    function openHandoff() {
+
+      handoffMode =
+        true;
+
+      closeChat();
+
+      document.getElementById(
+        "leadModalTitle"
+      ).textContent =
+        "Talk to the Mermaids Team";
+
+      document.getElementById(
+        "leadEventType"
+      ).value =
+        "Other";
+
+      leadPanel.classList.add("open");
+
+      document.getElementById(
+        "leadNotes"
+      ).placeholder =
+        "Tell our team what you need help with...";
+
+    }
+
+
+    /* =========================================================
+       AI EMAIL ASSISTANCE
+       ========================================================= */
+
+    function buildReservationEmail(lead) {
+
+      return `
+Subject: Reservation Request — ${lead.name}
+
+Hello Mermaids Team,
+
+I would like to request a table reservation.
+
+Name: ${lead.name}
+Guests: ${lead.guests}
+Date: ${lead.date}
+Time: ${lead.time}
+Email: ${lead.email}
+Phone: ${lead.phone}
+Special request: ${lead.notes || "None"}
+
+Please confirm availability.
+
+Kind regards,
+${lead.name}
+      `.trim();
+
+    }
+
+
+    function buildEventEmail(lead) {
+
+      return `
+Subject: Private Event Enquiry — ${lead.eventType}
+
+Hello Mermaids Team,
+
+I would like to enquire about hosting a private event at Mermaids Restaurant & Wine.
+
+Event type: ${lead.eventType}
+Preferred date: ${lead.date}
+Guests: ${lead.guests}
+Budget / preference: ${lead.budget || "Not specified"}
+
+Name: ${lead.name}
+Email: ${lead.email}
+Phone: ${lead.phone}
+
+Additional information:
+${lead.notes || "No additional information provided."}
+
+I would be happy to discuss the details further.
+
+Kind regards,
+${lead.name}
+      `.trim();
+
+    }
+
+
+    function buildHandoffEmail(lead) {
+
+      return `
+Subject: Customer Assistance Request — ${lead.name}
+
+Hello Mermaids Team,
+
+A customer would like to speak with a member of the Mermaids team.
+
+Name: ${lead.name}
+Email: ${lead.email}
+Phone: ${lead.phone}
+
+Request:
+${lead.notes || "Customer requested human assistance."}
+
+Lead ID: ${lead.id}
+
+Please follow up with the customer.
+
+Kind regards,
+Mermaids AI
+      `.trim();
+
+    }
+
+
+    function showEmailDraft(leadId) {
+
+      const leads =
+        getLeads();
+
+      const lead =
+        leads.find(
+          item =>
+            item.id === leadId
+        );
+
+      if (!lead) {
+        return;
+      }
+
+      let email = "";
+
+      if (
+        lead.type === "Reservation"
+      ) {
+
+        email =
+          buildReservationEmail(lead);
+
+      } else if (
+        lead.type === "Private Event"
+      ) {
+
+        email =
+          buildEventEmail(lead);
+
+      } else {
+
+        email =
+          buildHandoffEmail(lead);
+
+      }
+
+
+      openChat();
+
+      addMessage(
+        `
+          <strong>✉ AI Email Assistance</strong><br><br>
+
+          I've prepared a ready-to-use email
+          for the Mermaids team.<br><br>
+
+          <textarea
+            style="
+              width:100%;
+              min-height:260px;
+              background:#0d0d0d;
+              color:#ddd;
+              border:1px solid #333;
+              padding:12px;
+              font-family:Arial,sans-serif;
+              font-size:11px;
+              line-height:1.5;
+            "
+            readonly
+          >${escapeHTML(email)}</textarea>
+
+          <br><br>
+
+          <button
+            class="button small"
+            onclick="copyEmailDraft(this)"
+          >
+            Copy Email
+          </button>
+        `,
+        "bot"
+      );
+
+    }
+
+
+    function copyEmailDraft(button) {
+
+      const textarea =
+        button
+          .parentElement
+          .querySelector("textarea");
+
+      if (!textarea) {
+        return;
+      }
+
+      navigator.clipboard
+        .writeText(textarea.value)
+        .then(function() {
+
+          button.textContent =
+            "Copied ✓";
+
+          showToast(
+            "Email copied",
+            "The AI-generated email is ready to use."
+          );
+
+        })
+        .catch(function() {
+
+          textarea.select();
+
+          document.execCommand("copy");
+
+          button.textContent =
+            "Copied ✓";
+
+        });
+
+    }
+
+
+    /* =========================================================
        MAIN AI
-       ========================= */
+       ========================================================= */
 
     function getAIResponse(userText) {
 
@@ -2372,7 +3688,34 @@
         normalize(userText);
 
 
-      /* WAITING FOR RESERVATION DETAILS */
+      /* HUMAN HANDOFF */
+
+      if (
+        text.includes("human") ||
+        text.includes("team") ||
+        text.includes("person") ||
+        text.includes("manager") ||
+        text.includes("staff") ||
+        text.includes("talk to someone") ||
+        text.includes("μιλησω") ||
+        text.includes("ανθρωπο") ||
+        text.includes("υπευθυνο")
+      ) {
+
+        openHandoff();
+
+        return `
+          Of course. ✨<br><br>
+
+          I'll prepare a request for the
+          <strong>Mermaids team</strong> so a human
+          can follow up with you.
+        `;
+
+      }
+
+
+      /* WAITING */
 
       if (waitingFor) {
 
@@ -2395,6 +3738,41 @@
       }
 
 
+      /* PRIVATE EVENT */
+
+      if (
+        text.includes("private event") ||
+        text.includes("private party") ||
+        text.includes("birthday party") ||
+        text.includes("corporate event") ||
+        text.includes("corporate dinner") ||
+        text.includes("celebration") ||
+        text.includes("event") ||
+        text.includes("events") ||
+        text.includes("party") ||
+        text.includes("γενεθ") ||
+        text.includes("εκδηλ") ||
+        text.includes("παρτι") ||
+        text.includes("γιορτ") ||
+        text.includes("εταιρ")
+      ) {
+
+        openEventLead();
+
+        return `
+          <strong>Private Event Planning ✨</strong><br><br>
+
+          I'd love to help you plan it.<br><br>
+
+          I've opened our event enquiry form so
+          I can collect the details our team needs:
+          event type, date, guest count, budget
+          and your preferences.
+        `;
+
+      }
+
+
       /* LOCATION */
 
       if (
@@ -2406,7 +3784,6 @@
         text.includes("directions") ||
         text.includes("που βρισκεται") ||
         text.includes("που ειστε") ||
-        text.includes("που εισαστε") ||
         text.includes("διευθυνση") ||
         text.includes("τοποθεσια") ||
         text.includes("που ειναι")
@@ -2422,7 +3799,7 @@
           </strong><br><br>
 
           You can also find our contact details
-          in the Contact section of the website.
+          in the Contact section.
         `;
 
       }
@@ -2500,7 +3877,7 @@
       }
 
 
-      /* SPECIFIC DISH */
+      /* DISHES */
 
       if (
         text.includes("octopus") ||
@@ -2587,45 +3964,11 @@
       }
 
 
-      /* PRIVATE EVENTS */
-
-      if (
-        text.includes("event") ||
-        text.includes("events") ||
-        text.includes("private") ||
-        text.includes("party") ||
-        text.includes("birthday") ||
-        text.includes("corporate") ||
-        text.includes("celebration") ||
-        text.includes("γενεθ") ||
-        text.includes("εκδηλ") ||
-        text.includes("παρτι") ||
-        text.includes("γιορτ") ||
-        text.includes("εταιρ")
-      ) {
-
-        return `
-          <strong>✨ Private Events</strong><br><br>
-
-          We host
-          <strong>birthdays, corporate dinners
-          and private celebrations</strong>.<br><br>
-
-          Tell me the type of event,
-          preferred date and approximate number
-          of guests, and I can help you prepare
-          the enquiry for our team.
-        `;
-
-      }
-
-
-      /* VEGETARIAN / VEGAN */
+      /* DIETARY */
 
       if (
         text.includes("vegetarian") ||
         text.includes("vegan") ||
-        text.includes("vegetarian options") ||
         text.includes("χορτοφαγ") ||
         text.includes("vegan")
       ) {
@@ -2676,8 +4019,7 @@
         text.includes("email") ||
         text.includes("call") ||
         text.includes("επικοινων") ||
-        text.includes("τηλεφων") ||
-        text.includes("email")
+        text.includes("τηλεφων")
       ) {
 
         return `
@@ -2689,8 +4031,12 @@
           <strong>Email:</strong>
           ${MERMAIDS.email}<br><br>
 
-          We also accept private event
-          and group booking enquiries.
+          <button
+            class="button small"
+            onclick="openHandoff()"
+          >
+            Talk to our team
+          </button>
         `;
 
       }
@@ -2737,8 +4083,9 @@
           I'm your Mermaids AI Assistant.
           I can help you with reservations,
           our menu, wine, opening hours,
-          location, dietary requirements
-          and private events.
+          location, dietary requirements,
+          private events and connecting
+          you with our team.
         `;
 
       }
@@ -2756,14 +4103,15 @@
         return `
           <strong>✦ I can help with:</strong><br><br>
 
-          📅 Reservations<br>
+          📅 Reservations & lead capture<br>
           🍽️ Menu & dishes<br>
           🍷 Wine recommendations<br>
           🕐 Opening hours<br>
           📍 Location & address<br>
           🌿 Dietary requirements<br>
-          🎉 Private events<br>
-          📞 Contact information
+          🎉 Private event qualification<br>
+          👤 Human handoff<br>
+          ✉ AI email assistance
         `;
 
       }
@@ -2783,15 +4131,15 @@
         📅 <strong>Reservations</strong><br>
         🌿 <strong>Dietary requirements</strong><br>
         🎉 <strong>Private events</strong><br>
-        📞 <strong>Contact</strong>
+        👤 <strong>Talk to our team</strong>
       `;
 
     }
 
 
-    /* =========================
+    /* =========================================================
        SEND MESSAGE
-       ========================= */
+       ========================================================= */
 
     function sendMessage() {
 
@@ -2809,26 +4157,39 @@
 
       chatInput.value = "";
 
-      setTimeout(function () {
+      setTimeout(function() {
 
         const response =
           getAIResponse(text);
 
-        addMessage(
-          response,
-          "bot"
-        );
+        if (response) {
+
+          addMessage(
+            response,
+            "bot"
+          );
+
+        }
 
       }, 350);
 
     }
 
 
-    /* =========================
+    /* =========================================================
        QUICK QUESTIONS
-       ========================= */
+       ========================================================= */
 
     function quickQuestion(type) {
+
+      if (type === "human") {
+
+        openHandoff();
+
+        return;
+
+      }
+
 
       const questions = {
 
@@ -2867,9 +4228,9 @@
     }
 
 
-    /* =========================
-       BASIC HTML ESCAPE
-       ========================= */
+    /* =========================================================
+       ESCAPE HTML
+       ========================================================= */
 
     function escapeHTML(text) {
 
@@ -2884,9 +4245,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        ENTER KEY
-       ========================= */
+       ========================================================= */
 
     chatInput.addEventListener(
       "keydown",
@@ -2904,9 +4265,9 @@
     );
 
 
-    /* =========================
+    /* =========================================================
        RESERVATION FORM
-       ========================= */
+       ========================================================= */
 
     reservationForm.addEventListener(
       "submit",
@@ -2914,30 +4275,87 @@
 
         event.preventDefault();
 
+
         const name =
-          document.getElementById("guestName").value;
+          document.getElementById(
+            "guestName"
+          ).value;
 
         const guests =
-          document.getElementById("guests").value;
+          document.getElementById(
+            "guests"
+          ).value;
 
         const date =
-          document.getElementById("date").value;
+          document.getElementById(
+            "date"
+          ).value;
 
         const time =
-          document.getElementById("time").value;
+          document.getElementById(
+            "time"
+          ).value;
+
+        const email =
+          document.getElementById(
+            "email"
+          ).value;
+
+        const phone =
+          document.getElementById(
+            "phone"
+          ).value;
+
+        const request =
+          document.getElementById(
+            "request"
+          ).value;
+
+
+        const lead =
+          createLead({
+
+            type:
+              "Reservation",
+
+            name:
+              name,
+
+            guests:
+              guests,
+
+            date:
+              date,
+
+            time:
+              time,
+
+            email:
+              email,
+
+            phone:
+              phone,
+
+            notes:
+              request
+
+          });
+
+
+        showToast(
+          "Reservation lead captured",
+          "Lead " +
+          lead.id +
+          " has been added to the ELåiVA workflow."
+        );
 
 
         alert(
           "Thank you, " +
           name +
-          "! Your reservation request for " +
-          guests +
-          " on " +
-          date +
-          " at " +
-          time +
-          " has been received. " +
-          "Our team will contact you shortly."
+          "! Your reservation request has been captured as lead " +
+          lead.id +
+          ". Our team will contact you shortly."
         );
 
 
@@ -2947,10 +4365,352 @@
     );
 
 
-    /* =========================
-       MAKE FUNCTIONS AVAILABLE
-       TO INLINE HTML BUTTONS
-       ========================= */
+    /* =========================================================
+       DASHBOARD
+       ========================================================= */
+
+    function openDashboard() {
+
+      dashboardPanel.classList.add("open");
+
+      renderDashboard();
+
+    }
+
+
+    function closeDashboard() {
+
+      dashboardPanel.classList.remove("open");
+
+    }
+
+
+    function renderDashboard() {
+
+      const leads =
+        getLeads();
+
+      const total =
+        leads.length;
+
+      const reservations =
+        leads.filter(
+          lead =>
+            lead.type === "Reservation"
+        ).length;
+
+      const events =
+        leads.filter(
+          lead =>
+            lead.type === "Private Event"
+        ).length;
+
+      const handoffs =
+        leads.filter(
+          lead =>
+            lead.type === "Human Handoff"
+        ).length;
+
+
+      document.getElementById(
+        "statTotal"
+      ).textContent =
+        total;
+
+      document.getElementById(
+        "statReservations"
+      ).textContent =
+        reservations;
+
+      document.getElementById(
+        "statEvents"
+      ).textContent =
+        events;
+
+      document.getElementById(
+        "statHandoffs"
+      ).textContent =
+        handoffs;
+
+
+      const wrap =
+        document.getElementById(
+          "dashboardTableWrap"
+        );
+
+
+      if (!leads.length) {
+
+        wrap.innerHTML = `
+          <div class="dashboard-empty">
+            No leads yet.<br><br>
+            Test the AI assistant, reservation form
+            or private event enquiry to create your
+            first demo lead.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      let rows = "";
+
+
+      leads.forEach(function(lead) {
+
+        const statusClass =
+          "status-" +
+          lead.status
+            .toLowerCase()
+            .replace(/\s+/g, "-");
+
+
+        const workflow =
+          lead.workflow
+            ? lead.workflow.join(" → ")
+            : "";
+
+
+        rows += `
+
+          <tr>
+
+            <td>
+              <span class="lead-type">
+                ${escapeHTML(lead.type || "")}
+              </span>
+            </td>
+
+            <td>
+              <strong>
+                ${escapeHTML(lead.name || "—")}
+              </strong>
+
+              <div style="color:#666;margin-top:4px;">
+                ${escapeHTML(lead.id)}
+              </div>
+            </td>
+
+            <td>
+              ${escapeHTML(lead.email || "—")}
+              <br>
+              <span style="color:#666;">
+                ${escapeHTML(lead.phone || "")}
+              </span>
+            </td>
+
+            <td>
+              ${escapeHTML(lead.date || "—")}
+              ${lead.time
+                ? "<br>" + escapeHTML(lead.time)
+                : ""}
+            </td>
+
+            <td>
+              ${escapeHTML(
+                lead.guests
+                  ? String(lead.guests)
+                  : "—"
+              )}
+            </td>
+
+            <td>
+
+              <span class="status-badge ${statusClass}">
+                ${escapeHTML(lead.status)}
+              </span>
+
+              <div class="workflow-list">
+                ${escapeHTML(workflow)}
+              </div>
+
+            </td>
+
+            <td>
+
+              <button
+                class="button small"
+                onclick="showEmailDraft('${lead.id}')"
+              >
+                Email
+              </button>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      });
+
+
+      wrap.innerHTML = `
+
+        <table class="dashboard-table">
+
+          <thead>
+
+            <tr>
+
+              <th>Type</th>
+              <th>Lead</th>
+              <th>Contact</th>
+              <th>Date / Time</th>
+              <th>Guests</th>
+              <th>Status / Workflow</th>
+              <th>AI</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            ${rows}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       EXPORT LEADS
+       ========================================================= */
+
+    function exportLeads() {
+
+      const leads =
+        getLeads();
+
+      if (!leads.length) {
+
+        showToast(
+          "Nothing to export",
+          "Create at least one demo lead first."
+        );
+
+        return;
+
+      }
+
+
+      const blob =
+        new Blob(
+          [
+            JSON.stringify(
+              leads,
+              null,
+              2
+            )
+          ],
+          {
+            type:
+              "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const a =
+        document.createElement("a");
+
+      a.href =
+        url;
+
+      a.download =
+        "mermaids-leads.json";
+
+      a.click();
+
+      URL.revokeObjectURL(url);
+
+
+      showToast(
+        "Export complete",
+        "Your demo leads have been exported."
+      );
+
+    }
+
+
+    /* =========================================================
+       CLEAR LEADS
+       ========================================================= */
+
+    function clearLeads() {
+
+      const confirmed =
+        confirm(
+          "Clear all demo leads?"
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      localStorage.removeItem(
+        "mermaids_leads"
+      );
+
+      renderDashboard();
+
+      showToast(
+        "Demo data cleared",
+        "The lead dashboard is now empty."
+      );
+
+    }
+
+
+    /* =========================================================
+       SECRET DASHBOARD ACCESS
+       =========================================================
+
+       Demo shortcut:
+       Press CTRL + SHIFT + M
+    */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.ctrlKey &&
+          event.shiftKey &&
+          event.key.toLowerCase() === "m"
+        ) {
+
+          event.preventDefault();
+
+          openDashboard();
+
+        }
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeLeadPanel();
+
+          closeDashboard();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       EXPOSE FUNCTIONS
+       ========================================================= */
 
     window.openChat =
       openChat;
@@ -2963,6 +4723,34 @@
 
     window.quickQuestion =
       quickQuestion;
+
+    window.openEventLead =
+      openEventLead;
+
+    window.closeLeadPanel =
+      closeLeadPanel;
+
+    window.openHandoff =
+      openHandoff;
+
+    window.showEmailDraft =
+      showEmailDraft;
+
+    window.copyEmailDraft =
+      copyEmailDraft;
+
+    window.openDashboard =
+      openDashboard;
+
+    window.closeDashboard =
+      closeDashboard;
+
+    window.exportLeads =
+      exportLeads;
+
+    window.clearLeads =
+      clearLeads;
+
 
   </script>
 
