@@ -2375,7 +2375,46 @@
   <!-- =========================================================
        JAVASCRIPT
        ========================================================= -->
+<script>
+  const SUPABASE_URL = "https://kkucvaolsagjzhfkfypt.supabase.co";
+ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_S0JvuNbu1s4eemK3SMfcPw_7DbP2SFz";
+  async function saveMermaidsLead(data) {
+    try {
+      const response = await fetch(
+        SUPABASE_URL + "/rest/v1/leads",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_PUBLISHABLE_KEY,
+            "Authorization": "Bearer " + SUPABASE_PUBLISHABLE_KEY,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            guests: data.guests,
+            date: data.date,
+            time: data.time,
+            message: data.message,
+            source: "mermaids"
+          })
+        }
+      );
 
+      if (!response.ok) {
+        console.error("Supabase error:", await response.text());
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Supabase connection error:", error);
+      return false;
+    }
+  }
+</script>
   <script>
 
     /* =========================================================
@@ -2529,48 +2568,61 @@
        CREATE LEAD
        ========================================================= */
 
-    function createLead(data) {
+  ```js
+function createLead(data) {
 
-      const leads =
-        getLeads();
+  const leads =
+    getLeads();
 
-      const lead = {
+  const lead = {
 
-        id:
-          "MER-" +
-          Date.now().toString(36).toUpperCase(),
+    id:
+      "MER-" +
+      Date.now().toString(36).toUpperCase(),
 
-        createdAt:
-          new Date().toISOString(),
+    createdAt:
+      new Date().toISOString(),
 
-        status:
-          "New",
+    status:
+      "New",
 
-        ...data,
+    ...data,
 
-        workflow: [
+    workflow: [
 
-          "Lead captured",
+      "Lead captured",
 
-          "Data validated",
+      "Data validated",
 
-          "CRM record created",
+      "CRM record created",
 
-          "Team notification prepared",
+      "Team notification prepared",
 
-          "Follow-up task created"
+      "Follow-up task created"
 
-        ]
+    ]
 
-      };
+  };
 
-      leads.unshift(lead);
+  leads.unshift(lead);
 
-      saveLeads(leads);
+  saveLeads(leads);
 
-      return lead;
+  // Send lead to Supabase
+  saveMermaidsLead({
+    name: lead.name || "",
+    phone: lead.phone || "",
+    email: lead.email || "",
+    guests: lead.guests || null,
+    date: lead.date || "",
+    time: lead.time || "",
+    message: lead.notes || lead.message || ""
+  });
 
-    }
+  return lead;
+
+}
+```
 
 
     /* =========================================================
