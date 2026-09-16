@@ -3,16 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mermaids — Payment Successful</title>
-  <style>body{margin:0;background:#0b0b0b;color:#f5f1e8;font-family:Georgia,"Times New Roman",serif;min-height:100vh;display:grid;place-items:center;padding:24px}.card{width:min(560px,100%);padding:50px 30px;text-align:center;border:1px solid rgba(201,169,110,.35);background:#131313}.icon{font-size:46px;color:#8fbf91}.eyebrow{font:11px Arial,sans-serif;letter-spacing:4px;text-transform:uppercase;color:#c9a96e}.logo{font-size:38px;letter-spacing:5px;margin:12px 0 20px}.message{color:#aaa49a;line-height:1.7}.button{display:inline-block;margin-top:28px;padding:13px 20px;border:1px solid #c9a96e;color:#e2c995;text-decoration:none;font:11px Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase}</style>
+  <title>Mermaids — Payment Status</title>
+  <style>body{margin:0;background:#0b0b0b;color:#f5f1e8;font-family:Georgia,"Times New Roman",serif;min-height:100vh;display:grid;place-items:center;padding:24px}.card{width:min(560px,100%);padding:50px 30px;text-align:center;border:1px solid rgba(201,169,110,.35);background:#131313}.icon{font-size:46px;color:#8fbf91}.eyebrow{font:11px Arial,sans-serif;letter-spacing:4px;text-transform:uppercase;color:#c9a96e}.logo{font-size:38px;letter-spacing:5px;margin:12px 0 20px}.message{color:#aaa49a;line-height:1.7}.button{display:inline-block;margin-top:28px;padding:13px 20px;border:1px solid #c9a96e;color:#e2c995;text-decoration:none;font:11px Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase}.loading{color:#aaa49a}.error{color:#d9a6a6}</style>
 </head>
 <body>
   <main class="card">
-    <div class="icon">✓</div>
-    <div class="eyebrow">Payment successful</div>
+    <div class="icon" id="icon">…</div>
+    <div class="eyebrow" id="eyebrow">Verifying payment</div>
     <div class="logo">MERMAIDS</div>
-    <p class="message">Thank you. Your payment has been completed successfully.</p>
+    <p class="message loading" id="message">Please wait while we securely verify your payment.</p>
     <a class="button" href="/shop.html">Back to shop</a>
   </main>
+
+  <script>
+    const icon = document.getElementById('icon');
+    const eyebrow = document.getElementById('eyebrow');
+    const message = document.getElementById('message');
+    const sessionId = new URLSearchParams(window.location.search).get('session_id');
+
+    async function verifyPayment() {
+      if (!sessionId) {
+        throw new Error('Missing payment session.');
+      }
+
+      const response = await fetch(`/api/verify-checkout-session?session_id=${encodeURIComponent(sessionId)}`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Unable to verify payment.');
+      }
+
+      if (!data.paid) {
+        eyebrow.textContent = 'Payment not completed';
+        icon.textContent = '×';
+        message.className = 'message error';
+        message.textContent = 'We could not confirm a completed payment for this order. No paid order was recorded.';
+        return;
+      }
+
+      icon.textContent = '✓';
+      eyebrow.textContent = 'Payment successful';
+      message.className = 'message';
+      message.textContent = 'Thank you. Your payment has been verified and your order has been recorded successfully.';
+    }
+
+    verifyPayment().catch((error) => {
+      icon.textContent = '×';
+      eyebrow.textContent = 'Payment verification';
+      message.className = 'message error';
+      message.textContent = error.message || 'We could not verify the payment.';
+    });
+  </script>
 </body>
 </html>
