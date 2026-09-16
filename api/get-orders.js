@@ -3,12 +3,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL;
+  // Keep the orders API pointed at the same Supabase project used by the
+  // Mermaids frontend/database. The URL is public; the service-role key stays
+  // server-side in Vercel environment variables.
+  const supabaseUrl = 'https://kkucvaolsagjzhfkfypt.supabase.co';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const authHeader = req.headers.authorization || '';
   const accessToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
 
-  if (!supabaseUrl || !serviceKey || !accessToken) {
+  if (!serviceKey || !accessToken) {
     return res.status(401).json({ error: 'Authentication required.' });
   }
 
