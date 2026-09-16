@@ -1,52 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mermaids — Shop</title>
-  <style>
-    *{box-sizing:border-box}body{margin:0;background:#0b0b0b;color:#f5f1e8;font-family:Georgia,"Times New Roman",serif;min-height:100vh;display:grid;place-items:center;padding:24px}.card{width:min(520px,100%);background:#131313;border:1px solid rgba(201,169,110,.35);padding:38px;text-align:center;box-shadow:0 20px 70px #0008}.eyebrow{font:11px Arial,sans-serif;letter-spacing:4px;text-transform:uppercase;color:#c9a96e}.logo{font-size:42px;letter-spacing:6px;margin:12px 0 6px}.sub{color:#aaa49a;margin-bottom:28px}.product{border:1px solid #292929;padding:25px;text-align:left;margin-bottom:22px}.product h2{font-weight:normal;color:#e2c995;margin:0 0 8px}.product p{color:#aaa49a;margin:0 0 15px}.price{font-size:28px;color:#f5f1e8}.button{width:100%;padding:15px 20px;border:1px solid #c9a96e;background:#c9a96e;color:#111;font:12px Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer}.button:hover{background:#e2c995}.note{font:11px Arial,sans-serif;color:#666;margin-top:18px}.status{min-height:20px;color:#c77d7d;font:12px Arial,sans-serif;margin-top:12px}
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mermaids — Order Online</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b0b0b;color:#f5f1e8;font-family:Georgia,"Times New Roman",serif}.wrap{max-width:1100px;margin:auto;padding:45px 22px 90px}.top{text-align:center;margin-bottom:42px}.eyebrow{font:11px Arial,sans-serif;letter-spacing:4px;text-transform:uppercase;color:#c9a96e}.logo{font-size:46px;letter-spacing:7px;margin:10px 0}.sub{color:#aaa49a}.layout{display:grid;grid-template-columns:1fr 340px;gap:28px}.section{margin-bottom:30px}.section h2{font-weight:normal;color:#e2c995;font-size:27px;border-bottom:1px solid rgba(201,169,110,.25);padding-bottom:12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.item{background:#131313;border:1px solid #292929;padding:20px;display:flex;justify-content:space-between;gap:15px}.item h3{margin:0 0 6px;font-weight:normal;color:#eee;font-size:18px}.item p{margin:0;color:#8f8a83;font:12px Arial,sans-serif;line-height:1.5}.item .price{color:#e2c995;white-space:nowrap;font-size:18px}.add{margin-top:14px;border:1px solid #c9a96e;background:transparent;color:#e2c995;padding:9px 12px;font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:1px;cursor:pointer}.add:hover{background:#c9a96e;color:#111}.cart{position:sticky;top:22px;height:max-content;background:#131313;border:1px solid rgba(201,169,110,.4);padding:25px}.cart h2{margin:0 0 20px;font-weight:normal;color:#e2c995}.cart-items{display:grid;gap:12px}.cart-row{border-bottom:1px solid #292929;padding-bottom:12px}.rowtop{display:flex;justify-content:space-between;gap:10px}.qty{display:flex;align-items:center;gap:9px;margin-top:8px}.qty button{width:25px;height:25px;border:1px solid #555;background:#111;color:#eee;cursor:pointer}.empty{color:#777;font:12px Arial,sans-serif;padding:15px 0}.total{display:flex;justify-content:space-between;border-top:1px solid #444;margin-top:18px;padding-top:18px;font-size:21px}.checkout{width:100%;margin-top:18px;padding:15px;border:1px solid #c9a96e;background:#c9a96e;color:#111;font:11px Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer}.checkout:hover{background:#e2c995}.checkout:disabled{opacity:.55;cursor:not-allowed}.back{display:block;text-align:center;margin-top:18px;color:#777;font:11px Arial,sans-serif}.status{text-align:center;color:#c77d7d;font:12px Arial,sans-serif;min-height:20px;margin-top:12px}@media(max-width:800px){.layout{grid-template-columns:1fr}.cart{position:static}.grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <main class="card">
-    <div class="eyebrow">Mermaids Restaurant & Wine</div>
-    <div class="logo">MERMAIDS</div>
-    <div class="sub">Secure online payment demo</div>
-
-    <div class="product">
-      <h2>Mermaids Signature Experience</h2>
-      <p>A sample product used to demonstrate real Stripe Checkout integration.</p>
-      <div class="price">€18.00</div>
-    </div>
-
-    <button class="button" id="pay">Pay securely by card</button>
-    <div class="status" id="status"></div>
-    <div class="note">Powered by Stripe Checkout · Test mode during development</div>
-  </main>
-
-  <script>
-    const button = document.getElementById('pay');
-    const status = document.getElementById('status');
-    button.addEventListener('click', async () => {
-      button.disabled = true;
-      button.textContent = 'Opening secure checkout…';
-      status.textContent = '';
-      try {
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({product:'Mermaids Signature Experience', amount:1800, currency:'eur'})
-        });
-        const data = await response.json();
-        if (!response.ok || !data.url) throw new Error(data.error || 'Checkout could not be created.');
-        window.location.href = data.url;
-      } catch (error) {
-        status.textContent = error.message;
-        button.disabled = false;
-        button.textContent = 'Pay securely by card';
-      }
-    });
-  </script>
-</body>
-</html>
+<div class="wrap">
+<header class="top"><div class="eyebrow">Mermaids Restaurant & Wine</div><div class="logo">MERMAIDS</div><div class="sub">Order your favourites online</div></header>
+<div class="layout"><main>
+<section class="section"><h2>Starters</h2><div class="grid">
+<div class="item"><div><h3>Greek Mezze Selection</h3><p>A selection of Greek mezze to share.</p><button class="add" data-name="Greek Mezze Selection" data-price="18">Add to order</button></div><div class="price">€18</div></div>
+<div class="item"><div><h3>Grilled Octopus</h3><p>Charcoal grilled octopus with olive oil and lemon.</p><button class="add" data-name="Grilled Octopus" data-price="16">Add to order</button></div><div class="price">€16</div></div>
+</div></section>
+<section class="section"><h2>Main Courses</h2><div class="grid">
+<div class="item"><div><h3>Sea Bass Fillet</h3><p>Fresh sea bass with seasonal vegetables.</p><button class="add" data-name="Sea Bass Fillet" data-price="24">Add to order</button></div><div class="price">€24</div></div>
+<div class="item"><div><h3>Truffle Orzo</h3><p>Creamy orzo with truffle and parmesan.</p><button class="add" data-name="Truffle Orzo" data-price="19">Add to order</button></div><div class="price">€19</div></div>
+</div></section>
+<section class="section"><h2>Desserts</h2><div class="grid">
+<div class="item"><div><h3>Mermaids Cheesecake</h3><p>Our signature cheesecake dessert.</p><button class="add" data-name="Mermaids Cheesecake" data-price="9">Add to order</button></div><div class="price">€9</div></div>
+<div class="item"><div><h3>Chocolate Tart</h3><p>Dark chocolate tart with sea salt.</p><button class="add" data-name="Chocolate Tart" data-price="8">Add to order</button></div><div class="price">€8</div></div>
+</div></section>
+<section class="section"><h2>Wine</h2><div class="grid">
+<div class="item"><div><h3>House Rosé Bottle</h3><p>Mermaids house rosé wine.</p><button class="add" data-name="House Rosé Bottle" data-price="28">Add to order</button></div><div class="price">€28</div></div>
+<div class="item"><div><h3>Signature Experience</h3><p>A sample experience for the demo.</p><button class="add" data-name="Signature Experience" data-price="18">Add to order</button></div><div class="price">€18</div></div>
+</div></section>
+</main>
+<aside class="cart"><h2>Your Order</h2><div id="cartItems" class="cart-items"></div><div class="total"><span>Total</span><strong id="total">€0</strong></div><button id="checkout" class="checkout" disabled>Continue to secure payment</button><div id="status" class="status"></div><a class="back" href="/">← Back to Mermaids</a></aside>
+</div></div>
+<script>
+const cart={};const itemsEl=document.getElementById('cartItems'),totalEl=document.getElementById('total'),checkout=document.getElementById('checkout'),status=document.getElementById('status');
+document.querySelectorAll('.add').forEach(btn=>btn.addEventListener('click',()=>{const name=btn.dataset.name;cart[name]=(cart[name]||0)+1;render();}));
+function render(){itemsEl.innerHTML='';let total=0;const names=Object.keys(cart).filter(n=>cart[n]>0);if(!names.length){itemsEl.innerHTML='<div class="empty">Your order is empty.</div>';checkout.disabled=true;totalEl.textContent='€0';return;}names.forEach(name=>{const price=Number(document.querySelector(`[data-name="${CSS.escape(name)}"]`).dataset.price);const qty=cart[name];total+=price*qty;const row=document.createElement('div');row.className='cart-row';row.innerHTML=`<div class="rowtop"><span>${name}</span><strong>€${price*qty}</strong></div><div class="qty"><button data-action="minus">−</button><span>${qty}</span><button data-action="plus">+</button></div>`;row.querySelector('[data-action="minus"]').onclick=()=>{cart[name]--;render()};row.querySelector('[data-action="plus"]').onclick=()=>{cart[name]++;render()};itemsEl.appendChild(row);});totalEl.textContent=`€${total}`;checkout.disabled=false;}
+checkout.onclick=async()=>{const items=Object.entries(cart).filter(([,quantity])=>quantity>0).map(([name,quantity])=>({name,quantity}));checkout.disabled=true;checkout.textContent='Opening secure payment…';status.textContent='';try{const r=await fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items})});const data=await r.json();if(!r.ok||!data.url)throw new Error(data.error||'Checkout could not be created.');location.href=data.url;}catch(e){status.textContent=e.message;checkout.disabled=false;checkout.textContent='Continue to secure payment';}};
+render();
+</script>
+</body></html>
