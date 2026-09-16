@@ -1,11 +1,18 @@
 export default async function handler(req, res) {
+  const allowedOrigin = 'https://papastergiouueodwra-hash.github.io';
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  res.setHeader('Vary', 'Origin');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Keep the orders API pointed at the same Supabase project used by the
-  // Mermaids frontend/database. The URL is public; the service-role key stays
-  // server-side in Vercel environment variables.
   const supabaseUrl = 'https://kkucvaolsagjzhfkfypt.supabase.co';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const authHeader = req.headers.authorization || '';
