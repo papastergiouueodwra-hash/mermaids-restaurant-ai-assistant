@@ -36,7 +36,7 @@ function getFilteredLeads(){
 }
 function renderLeads(){
  const filtered=getFilteredLeads();
- rows.innerHTML=filtered.length?filtered.map(l=>'<tr><td>'+esc(l.type||"—")+'</td><td><strong>'+esc(l.name||"—")+'</strong></td><td>'+esc(l.email||"—")+'<br>'+esc(l.phone||"")+'</td><td>'+esc(l.date||"—")+'<br>'+esc(l.time||"")+'</td><td>'+esc(l.guests||"—")+'</td><td>'+esc(l.message||"—")+'</td><td><span class="badge">'+esc(l.status||"New")+'</span></td><td>'+esc(l.created_at?new Date(l.created_at).toLocaleString("en-GB"):"—")+'</td><td>—</td></tr>').join(""):'<tr><td colspan="9" class="empty">No leads found.</td></tr>';
+ rows.innerHTML=filtered.length?filtered.map(l=>'<tr><td>'+esc(l.type||"—")+'</td><td><strong>'+esc(l.name||"—")+'</strong></td><td>'+esc(l.email||"—")+'<br>'+esc(l.phone||"")+'</td><td>'+esc(l.date||"—")+'<br>'+esc(l.time||"")+'</td><td>'+esc(l.guests||"—")+'</td><td>'+esc(l.message||"—")+'</td><td><select class="lead-status" data-id="'+esc(l.id||"")+'"><option'+((l.status||"New")==="New"?" selected":"")+'>New</option><option'+((l.status||"New")==="Contacted"?" selected":"")+'>Contacted</option><option'+((l.status||"New")==="Confirmed"?" selected":"")+'>Confirmed</option><option'+((l.status||"New")==="Cancelled"?" selected":"")+'>Cancelled</option></select></td><td>'+esc(l.created_at?new Date(l.created_at).toLocaleString("en-GB"):"—")+'</td><td>—</td></tr>').join(""):'<tr><td colspan="9" class="empty">No leads found.</td></tr>';
 }
 function csvCell(value){
  const s=String(value??"");
@@ -100,6 +100,28 @@ document.getElementById("orderRefresh").onclick=load;
 document.getElementById("export").onclick=exportLeadsCSV;
 document.getElementById("search").addEventListener("input",renderLeads);
 document.getElementById("statusFilter").addEventListener("change",renderLeads);
+async function updateLeadStatus(id,status){
+ const response=await fetch(API+"/api/update-lead-status",{
+   method:"PATCH",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({id,status})
+ });
+ const payload=await response.json().catch(()=>({}));
+ if(!response.ok) throw new Error(payload.error||"Unable to update lead status.");
+ const index=leads.findIndex(l=>String(l.id)===String(id));
+ if(index!==-1) leads[index]={...leads[index],status};
+ document.getElementById("newLeads").textContent=leads.filter(x=>(x.status||"New")==="New").length;
+}
+document.getElementById("rows").addEventListener("change",async(event)=>{
+ const select=event.target.closest(".lead-status");
+ if(!select) return;
+ const id=select.dataset.id;
+ const status=select.value;
+ select.disabled=true;
+ try{ await updateLeadStatus(id,status); }
+ catch(e){ alert(e.message); await load(); }
+ finally{ select.disabled=false; }
+});
 document.getElementById("leadsTab").onclick=function(){document.getElementById("leadsTab").classList.add("active");document.getElementById("ordersTab").classList.remove("active");document.getElementById("leadsPanel").classList.remove("hidden");document.getElementById("ordersPanel").classList.add("hidden")};
 document.getElementById("ordersTab").onclick=function(){document.getElementById("ordersTab").classList.add("active");document.getElementById("leadsTab").classList.remove("active");document.getElementById("ordersPanel").classList.remove("hidden");document.getElementById("leadsPanel").classList.add("hidden")};
 load();
