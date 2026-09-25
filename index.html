@@ -956,6 +956,36 @@
       color: var(--gold-light);
     }
 
+    function showReservationSuccess(lead) {
+      const existing = document.getElementById("reservationSuccess");
+      if (existing) existing.remove();
+
+      const modal = document.createElement("div");
+      modal.id = "reservationSuccess";
+      modal.innerHTML = `
+        <div class="reservation-success-backdrop">
+          <div class="reservation-success-card">
+            <button class="reservation-success-close" type="button" aria-label="Close">×</button>
+            <div class="reservation-success-icon">✓</div>
+            <div class="reservation-success-label">RESERVATION REQUEST</div>
+            <h2>Thank you, ${escapeHTML(lead.name || "Guest")}!</h2>
+            <p>Your reservation request has been received successfully.</p>
+            <div class="reservation-success-id">Lead ID · <strong>${escapeHTML(lead.id || "")}</strong></div>
+            <p class="reservation-success-small">Our Mermaids team will contact you shortly to confirm the details.</p>
+            <button class="button gold reservation-success-ok" type="button">Close</button>
+          </div>
+        </div>`;
+
+      document.body.appendChild(modal);
+
+      const close = () => modal.remove();
+      modal.querySelector(".reservation-success-close").addEventListener("click", close);
+      modal.querySelector(".reservation-success-ok").addEventListener("click", close);
+      modal.querySelector(".reservation-success-backdrop").addEventListener("click", (event) => {
+        if (event.target.classList.contains("reservation-success-backdrop")) close();
+      });
+    }
+
     /* =========================================================
        DASHBOARD
        ========================================================= */
