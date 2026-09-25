@@ -1255,7 +1255,17 @@
         min-width: auto;
       }
     }
-  </style>
+      .reservation-success-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px}
+    .reservation-success-card{position:relative;width:min(520px,100%);background:#151515;border:1px solid var(--gold);padding:48px 38px;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.6)}
+    .reservation-success-close{position:absolute;right:15px;top:10px;background:none;border:0;color:#aaa;font-size:28px;cursor:pointer}
+    .reservation-success-icon{width:52px;height:52px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--gold-light);font-size:25px}
+    .reservation-success-label{font:10px Arial,sans-serif;letter-spacing:3px;color:var(--gold);margin-bottom:12px}
+    .reservation-success-card h2{font-weight:normal;color:var(--cream);font-size:30px;margin:0 0 12px}
+    .reservation-success-card p{color:#aaa49a;margin:0 auto 20px;max-width:390px}
+    .reservation-success-id{border:1px solid #292929;background:#101010;padding:12px;color:#777;font:11px Arial,sans-serif;margin:20px 0}
+    .reservation-success-id strong{color:var(--gold-light)}
+    .reservation-success-small{font-size:12px!important}
+</style>
 </head>
 
 <body>
@@ -2391,45 +2401,32 @@
        JAVASCRIPT
        ========================================================= -->
 <script>
-  const SUPABASE_URL = "https://kkucvaolsagjzhfkfypt.supabase.co";
- const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_S0JvuNbu1s4eemK3SMfcPw_7DbP2SFz";
+  const LEAD_API = "https://mermaids-restaurant-ai-assistant.vercel.app/api/save-lead";
   async function saveMermaidsLead(data) {
     try {
-      const response = await fetch(
-        SUPABASE_URL + "/rest/v1/leads",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": SUPABASE_PUBLISHABLE_KEY,
-            "Authorization": "Bearer " + SUPABASE_PUBLISHABLE_KEY,
-            "Prefer": "return=minimal"
-          },
-          body: JSON.stringify({
-            name: data.name,
-            phone: data.phone,
-            email: data.email,
-            guests: data.guests,
-            date: data.date,
-            time: data.time,
-            message: data.message,
-            source: "mermaids"
-          })
-        }
-      );
-
+      const response = await fetch(LEAD_API, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          name:data.name || "",
+          phone:data.phone || "",
+          email:data.email || "",
+          guests:data.guests ?? null,
+          date:data.date || "",
+          time:data.time || "",
+          message:data.message || data.notes || ""
+        })
+      });
       if (!response.ok) {
-        console.error("Supabase error:", await response.text());
+        console.error("Lead API error:", await response.text());
         return false;
       }
-
       return true;
     } catch (error) {
-      console.error("Supabase connection error:", error);
+      console.error("Lead API connection error:", error);
       return false;
     }
-  }
-</script>
+  }</script>
   <script>
 
     /* =========================================================
@@ -4415,13 +4412,7 @@ Mermaids AI
         );
 
 
-        alert(
-          "Thank you, " +
-          name +
-          "! Your reservation request has been captured as lead " +
-          lead.id +
-          ". Our team will contact you shortly."
-        );
+        showReservationSuccess(lead);
 
 
         this.reset();
