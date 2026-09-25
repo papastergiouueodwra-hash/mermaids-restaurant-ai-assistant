@@ -2432,7 +2432,7 @@
        ========================================================= -->
 <script>
   const LEAD_API = "https://mermaids-restaurant-ai-assistant.vercel.app/api/save-lead";
-  async function saveMermaidsLead(data) {
+  async async function saveMermaidsLead(data) {
     try {
       const response = await fetch(LEAD_API, {
         method: "POST",
