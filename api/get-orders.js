@@ -15,30 +15,11 @@ export default async function handler(req, res) {
 
   const supabaseUrl = 'https://kkucvaolsagjzhfkfypt.supabase.co';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const authHeader = req.headers.authorization || '';
-  const accessToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
-
-  if (!serviceKey || !accessToken) {
-    return res.status(401).json({ error: 'Authentication required.' });
+  if (!serviceKey) {
+    return res.status(500).json({ error: 'Order service is not configured.' });
   }
 
   try {
-    const userResponse = await fetch(`${supabaseUrl}/auth/v1/user`, {
-      headers: {
-        apikey: serviceKey,
-        Authorization: `Bearer ${accessToken}`
-      }
-    });
-
-    if (!userResponse.ok) {
-      return res.status(401).json({ error: 'Invalid authentication session.' });
-    }
-
-    const user = await userResponse.json();
-    if (!user?.id) {
-      return res.status(401).json({ error: 'Invalid authentication session.' });
-    }
-
     const ordersResponse = await fetch(
       `${supabaseUrl}/rest/v1/orders?select=id,created_at,customer_email,items,total_amount,currency,payment_status,stripe_session_id&order=created_at.desc&limit=200`,
       {
