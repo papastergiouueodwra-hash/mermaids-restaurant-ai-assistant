@@ -2417,14 +2417,26 @@
           message:data.message || data.notes || ""
         })
       });
+
+      const payload = await response.json().catch(() => ({}));
+
       if (!response.ok) {
-        console.error("Lead API error:", await response.text());
-        return false;
+        const errorMessage =
+          payload.error ||
+          payload.message ||
+          "Unable to save lead.";
+
+        console.error("Lead API error:", errorMessage);
+        return { ok: false, error: errorMessage };
       }
-      return true;
+
+      return { ok: true, data: payload };
     } catch (error) {
       console.error("Lead API connection error:", error);
-      return false;
+      return {
+        ok: false,
+        error: "Unable to connect to the lead service."
+      };
     }
   }
   function showReservationSuccess(lead) {
@@ -2650,8 +2662,8 @@ function createLead(data) {
 
   saveLeads(leads);
 
-  // Send lead to Supabase
-  saveMermaidsLead({
+  // Send lead to Supabase and expose the result to the caller.
+  lead._savePromise = saveMermaidsLead({
     name: lead.name || "",
     phone: lead.phone || "",
     email: lead.email || "",
@@ -4364,7 +4376,7 @@ Mermaids AI
 
     reservationForm.addEventListener(
       "submit",
-      function(event) {
+      async function(event) {
 
         event.preventDefault();
 
@@ -4435,16 +4447,29 @@ Mermaids AI
           });
 
 
+        const saveResult = await lead._savePromise;
+
+        if (!saveResult.ok) {
+          const leads = getLeads().filter(item => item.id !== lead.id);
+          saveLeads(leads);
+
+          showToast(
+            "Reservation not saved",
+            saveResult.error ||
+            "The reservation could not be added to the CRM. Please try again."
+          );
+
+          return;
+        }
+
         showToast(
           "Reservation lead captured",
           "Lead " +
           lead.id +
-          " has been added to the ELåiVA workflow."
+          " has been added to the ELåiVA CRM."
         );
 
-
         showReservationSuccess(lead);
-
 
         this.reset();
 
