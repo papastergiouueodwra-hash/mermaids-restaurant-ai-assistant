@@ -24,6 +24,56 @@ const API="https://mermaids-restaurant-ai-assistant.vercel.app";
 const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const money=v=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"EUR"}).format(Number(v||0));
 let leads=[],orders=[];
+function getFilteredLeads(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const status=document.getElementById("statusFilter").value;
+ return leads.filter(l=>{
+   const haystack=[l.name,l.email,l.phone].map(v=>String(v??"").toLowerCase()).join(" ");
+   const matchesSearch=!q||haystack.includes(q);
+   const matchesStatus=!status||(l.status||"New")===status;
+   return matchesSearch&&matchesStatus;
+ });
+}
+function renderLeads(){
+ const filtered=getFilteredLeads();
+ rows.innerHTML=filtered.length?filtered.map(l=>'<tr><td>'+esc(l.type||"—")+'</td><td><strong>'+esc(l.name||"—")+'</strong></td><td>'+esc(l.email||"—")+'<br>'+esc(l.phone||"")+'</td><td>'+esc(l.date||"—")+'<br>'+esc(l.time||"")+'</td><td>'+esc(l.guests||"—")+'</td><td>'+esc(l.message||"—")+'</td><td><span class="badge">'+esc(l.status||"New")+'</span></td><td>'+esc(l.created_at?new Date(l.created_at).toLocaleString("en-GB"):"—")+'</td><td>—</td></tr>').join(""):'<tr><td colspan="9" class="empty">No leads found.</td></tr>';
+}
+function csvCell(value){
+ const s=String(value??"");
+ return '"'+s.replace(/"/g,'""').replace(/\r?\n/g," ")+'"';
+}
+function exportLeadsCSV(){
+ const data=getFilteredLeads();
+ if(!data.length){
+   alert("No leads to export.");
+   return;
+ }
+ const headers=["Type","Guest","Email","Phone","Date","Time","Guests","Message","Status","Created"];
+ const lines=[headers.map(csvCell).join(",")];
+ data.forEach(l=>{
+   lines.push([
+     l.type||"",
+     l.name||"",
+     l.email||"",
+     l.phone||"",
+     l.date||"",
+     l.time||"",
+     l.guests??"",
+     l.message||"",
+     l.status||"New",
+     l.created_at?new Date(l.created_at).toLocaleString("en-GB"):""
+   ].map(csvCell).join(","));
+ });
+ const blob=new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8;"});
+ const url=URL.createObjectURL(blob);
+ const link=document.createElement("a");
+ link.href=url;
+ link.download="mermaids-leads-"+new Date().toISOString().slice(0,10)+".csv";
+ document.body.appendChild(link);
+ link.click();
+ link.remove();
+ URL.revokeObjectURL(url);
+}
 async function load(){
 try{
  const sr=await fetch(API+"/api/get-leads");
@@ -34,7 +84,7 @@ try{
  document.getElementById("reservations").textContent=leads.filter(x=>x.type==="Reservation").length;
  document.getElementById("events").textContent=leads.filter(x=>x.type==="Private Event").length;
  document.getElementById("newLeads").textContent=leads.filter(x=>(x.status||"New")==="New").length;
- rows.innerHTML=leads.length?leads.map(l=>'<tr><td>'+esc(l.type||"—")+'</td><td><strong>'+esc(l.name||"—")+'</strong></td><td>'+esc(l.email||"—")+'<br>'+esc(l.phone||"")+'</td><td>'+esc(l.date||"—")+'<br>'+esc(l.time||"")+'</td><td>'+esc(l.guests||"—")+'</td><td>'+esc(l.message||"—")+'</td><td><span class="badge">'+esc(l.status||"New")+'</span></td><td>'+esc(l.created_at?new Date(l.created_at).toLocaleString("en-GB"):"—")+'</td><td>—</td></tr>').join(""):'<tr><td colspan="9" class="empty">No leads found.</td></tr>';
+ renderLeads();
 }catch(e){rows.innerHTML='<tr><td colspan="9" class="empty">'+esc(e.message)+'</td></tr>'}
 try{
  const or=await fetch(API+"/api/get-orders"); const d=await or.json();
@@ -47,6 +97,9 @@ try{
 }
 document.getElementById("refresh").onclick=load;
 document.getElementById("orderRefresh").onclick=load;
+document.getElementById("export").onclick=exportLeadsCSV;
+document.getElementById("search").addEventListener("input",renderLeads);
+document.getElementById("statusFilter").addEventListener("change",renderLeads);
 document.getElementById("leadsTab").onclick=function(){document.getElementById("leadsTab").classList.add("active");document.getElementById("ordersTab").classList.remove("active");document.getElementById("leadsPanel").classList.remove("hidden");document.getElementById("ordersPanel").classList.add("hidden")};
 document.getElementById("ordersTab").onclick=function(){document.getElementById("ordersTab").classList.add("active");document.getElementById("leadsTab").classList.remove("active");document.getElementById("ordersPanel").classList.remove("hidden");document.getElementById("leadsPanel").classList.add("hidden")};
 load();
