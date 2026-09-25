@@ -20,17 +20,16 @@ const rows=document.getElementById("rows");
 const orderRows=document.getElementById("orderRows");
 rows.innerHTML='<tr><td colspan="9" class="empty">Loading leads…</td></tr>';
 orderRows.innerHTML='<tr><td colspan="8" class="empty">Loading orders…</td></tr>';
-const SUPABASE_URL="https://kkucvaolsagjzhfkfypt.supabase.co";
-const KEY="sb_publishable_S0JvuNbu1s4eemK3SMfcPw_7DbP2SFz";
 const API="https://mermaids-restaurant-ai-assistant.vercel.app";
 const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const money=v=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"EUR"}).format(Number(v||0));
 let leads=[],orders=[];
 async function load(){
 try{
- const sr=await fetch(SUPABASE_URL+"/rest/v1/leads?select=*&order=created_at.desc",{headers:{apikey:KEY,Accept:"application/json"}});
- if(!sr.ok) throw new Error("Leads: "+sr.status);
- leads=await sr.json();
+ const sr=await fetch(API+"/api/get-leads");
+ const sd=await sr.json().catch(()=>({}));
+ if(!sr.ok) throw new Error(sd.error||"Unable to load leads.");
+ leads=Array.isArray(sd.leads)?sd.leads:[];
  document.getElementById("total").textContent=leads.length;
  document.getElementById("reservations").textContent=leads.filter(x=>x.type==="Reservation").length;
  document.getElementById("events").textContent=leads.filter(x=>x.type==="Private Event").length;
